@@ -2,10 +2,11 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { HomePage } from '../home/home';
-import {AboutPage} from '../about/about';
-import {ContactPage} from '../contact/contact';
-import {BookingPage} from '../booking/booking';
-import {TabsPage}  from '../tabs/tabs';
+import { AboutPage } from '../about/about';
+import { ContactPage } from '../contact/contact';
+import { BookingPage } from '../booking/booking';
+import { TabsPage }  from '../tabs/tabs';
+import { CalendarPage } from '../calendar/calendar';
 /**
  * Generated class for the LoginPage page.
  *
@@ -19,6 +20,7 @@ import {TabsPage}  from '../tabs/tabs';
   templateUrl: 'login.html'
 })
 export class LoginPage {
+  calendarPage = CalendarPage;
   aboutPage = AboutPage;
   bookingPage = BookingPage;
 
@@ -55,9 +57,6 @@ export class LoginPage {
         if(user.emailVerified) {
           // Redirect the user here 
           this.navCtrl.push(TabsPage);
-
-         
-
 
         } else {
           // Tell the user to have a look at its mailbox 
