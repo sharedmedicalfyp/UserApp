@@ -39,4 +39,12 @@
     <!--<button ion-button [navPush]="aboutPage">Go To About</button>-->
     <button ion-button [navPush]="bookingPage">Go To Booking</button>
     <button ion-button [navPush]="calendarPage">Go To Calendar</button>
+
+    <ion-list>
+        <ion-item class="text" *ngFor="let item of items | async">
+            Start Time: {{item.Starttime}}
+        </ion-item>
+    </ion-list>
+
+
 </ion-content>

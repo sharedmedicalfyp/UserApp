@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, ModalController, NavController, NavParams, AlertController } from 'ionic-angular';
 import * as moment from 'moment';
-
+import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
+import { Observable } from 'rxjs/Observable';
 /**
  * Generated class for the CalendarPage page.
  *
@@ -16,6 +17,9 @@ import * as moment from 'moment';
 })
 export class CalendarPage {
 
+  items: Observable<any[]>;
+  itemRef: AngularFireList<any>;
+
   eventSource = [];
   viewTitle: string;
   selectedDay = new Date();
@@ -25,8 +29,11 @@ export class CalendarPage {
     currentDate: new Date()
   };
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private modalCtrl: ModalController, private alertCtrl: AlertController) {
-  }
+  constructor(public navCtrl: NavController, public navParams: NavParams, private modalCtrl: ModalController, private alertCtrl: AlertController
+  ,afDB: AngularFireDatabase) {
+   // Retrieve list of items
+  this.items = afDB.list('Bookings').valueChanges();
+}
 
   addEvent() {
     let modal = this.modalCtrl.create('EventModalPage', {selectedDay: this.selectedDay});
@@ -58,7 +65,8 @@ export class CalendarPage {
     
     let alert = this.alertCtrl.create({
       title: '' + event.title,
-      subTitle: 'From: ' + start + '<br>To: ' + end,
+      // subTitle: 'From: ' + start + '<br>To: ' + end,
+        subTitle: 'From: ' + start ,
       buttons: ['OK']
     })
     alert.present();

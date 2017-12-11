@@ -10,21 +10,23 @@ import { AboutPage } from '../pages/about/about';
 import { BookingPage } from '../pages/booking/booking';
 import { TabsPage } from '../pages/tabs/tabs';
 // import { PickupDirective } from '../components/pickup/pickup';
-import {SplitPane} from '../providers/split-pane/split-pane';
+import { SplitPane } from '../providers/split-pane/split-pane';
+import { AngularFireAuth } from 'angularfire2/auth';
 
 @Component({
   templateUrl: 'app.html',
 })
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
-
+   bookingPage = BookingPage;
   // rootPage:any = HomePage;
    rootPage:any = LoginPage;
   // rootPage:any = TabsPage;
    shouldShowPane = false;
 
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen,
-  public splitPlane: SplitPane, public app:App, public menu: MenuController ) {
+  public splitPlane: SplitPane, public app:App, public menu: MenuController,
+  private afAuth: AngularFireAuth ) {
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
@@ -43,5 +45,10 @@ export class MyApp {
     this.menu.enable(false);
     setTimeout(()=> this.backToWelcome(), 1000);
   }
+
+    signOut() {
+    this.afAuth.auth.signOut();
+  }
+
 }
 

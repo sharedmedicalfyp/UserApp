@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController, ActionSheetController } from 'ionic-angular';
-import { AngularFireDatabase, AngularFireList, AngularFireObject } from 'angularfire2/database';
+import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
 import { Observable } from 'rxjs/Observable';
 /**
  * Generated class for the BookingPage page.
@@ -75,7 +75,8 @@ export class BookingPage {
             Assistance: assistance,
             TwoWayTrip: twowaytrip,
             Duration: duration,
-            Contact: contact
+            Contact: contact,
+            Status: ""
              }) //}
 
 //               catch(e){

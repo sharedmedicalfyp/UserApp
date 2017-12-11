@@ -56,7 +56,6 @@ export const firebaseConfig = {
     AngularFireModule.initializeApp(firebaseConfig),
     AngularFireAuthModule,    // AngularFire
     AngularFireDatabaseModule,
-    AngularFireAuthModule,
     NgCalendarModule
   ],
   bootstrap: [IonicApp],

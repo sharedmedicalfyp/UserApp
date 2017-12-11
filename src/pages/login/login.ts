@@ -7,6 +7,10 @@ import { ContactPage } from '../contact/contact';
 import { BookingPage } from '../booking/booking';
 import { TabsPage }  from '../tabs/tabs';
 import { CalendarPage } from '../calendar/calendar';
+
+// Firebase
+import { AngularFireDatabase, AngularFireObject, AngularFireList } from 'angularfire2/database';
+import { Observable } from 'rxjs/Observable';
 /**
  * Generated class for the LoginPage page.
  *
@@ -24,8 +28,15 @@ export class LoginPage {
   aboutPage = AboutPage;
   bookingPage = BookingPage;
 
+  items: Observable<any[]>;
+  items2: AngularFireList<any[]>;
+
+
   constructor(public navCtrl: NavController, public navParams: NavParams, public angularFireAuth: AngularFireAuth
-  , public alertCtrl: AlertController) {
+  , public alertCtrl: AlertController, afDB: AngularFireDatabase) {
+
+    // Retrieve list of items
+    this.items = afDB.list('Bookings').valueChanges();
   }
 
   ionViewDidLoad() {
@@ -62,8 +73,8 @@ export class LoginPage {
           // Tell the user to have a look at its mailbox 
            // Alert
           let alert = this.alertCtrl.create({
-          title: 'Great Credentials',
-          subTitle: 'Please try again.',
+          title: 'Unverified email.',
+          subTitle: 'Please check your inbox and try again.',
           buttons: ['Dismiss']
         });
         alert.present();  // End of alert
