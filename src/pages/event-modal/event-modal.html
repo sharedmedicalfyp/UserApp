@@ -18,23 +18,133 @@
 
 <ion-content>
     <ion-list>
-        <ion-item>
+        <!--<ion-item>
             <ion-input type="text" placeholder="Title" [(ngModel)]="event.title"></ion-input>
-        </ion-item>
+        </ion-item>-->
+
+        <!--<ion-item>
+            <ion-input type="date" [(ngModel)]="date"></ion-input>
+        </ion-item>-->
 
         <ion-item>
             <ion-label>Start Time</ion-label>
-            <ion-datetime displayFormat="MM/DD/YYYY HH:mm" pickerFormat="MMM D:HH:mm" [(ngModel)]="event.startTime" [min]="minDate"></ion-datetime>
+            <ion-datetime displayFormat="MM/DD/YYYY HH:mm" pickerFormat="YYYY-MM-DD:HH:mm" [(ngModel)]="startTime" [min]="minDate"></ion-datetime>
         </ion-item>
+
+        <ion-item>
+            <ion-label>End Time</ion-label>
+            <ion-datetime displayFormat="MM/DD/YYYY HH:mm" pickerFormat="YYYY-MM-DD:HH:mm" [(ngModel)]="startTime" [min]="minDate"></ion-datetime>
+        </ion-item>
+
+        <!--Add the pricing with calcuation by hrs-->
+        <ion-item>
+            <ion-label floating>Stay-Thru (Duration)</ion-label>
+            <ion-select [(ngModel)]="duration" placeholder="Select Duration">
+                <ion-option value="1 Hour" selected="true">1 Hour</ion-option>
+                <ion-option value="2 Hours">2 Hours</ion-option>
+                <ion-option value="3 Hours">3 Hours</ion-option>
+                <ion-option value="4 Hours">4 Hours</ion-option>
+                <ion-option value="5 Hours">5 Hours</ion-option>
+                <ion-option value="6 Hours">6 Hours</ion-option>
+            </ion-select>
+        </ion-item>
+
+        <!--<ion-col col-6 col-md-6 col-sm-6>
+                <ion-label>Select a date</ion-label>
+                <ion-item>
+                    <ion-input type="date" [(ngModel)]="date"></ion-input>
+                </ion-item>
+            </ion-col>
+
+            <ion-col col-6 col-md-6 col-sm-6>
+                <ion-label>Select a Timeslot</ion-label>
+                <ion-list>
+                    <ion-row>
+                        <ion-select [(ngModel)]="timeslot">
+                            <ion-option value="0800-0900" selected="true">8am to 6am</ion-option>
+                            <ion-option value="0900-1000">9pm to 6pm</ion-option>
+                            <ion-option value="1000-1100">10am to 6pm</ion-option>
+                            <ion-option value="1100-1200">1100-1200</ion-option>
+                            <ion-option value="1200-1300">1200-1300</ion-option>
+                        </ion-select>
+                    </ion-row>
+                </ion-list>
+            </ion-col>-->
+
+        <ion-item>
+            <ion-label floating>Location Pickup (Address)</ion-label>
+            <ion-input type="location" [(ngModel)]="location"></ion-input>
+        </ion-item>
+
+        <!-- Change this to checkbox-->
+        <ion-item>
+            <ion-label floating>Require Assistance?</ion-label>
+            <ion-select [(ngModel)]="assistance">
+                <ion-option value="No" selected="true">Able to walk</ion-option>
+                <ion-option value="Wheelchair">Wheel-chair with client</ion-option>
+                <ion-option value="Accompany">Accompany person from family</ion-option>
+            </ion-select>
+        </ion-item>
+
+        <!--Enable tis if they require assistance from the above-->
+        <ion-item>
+            <ion-label floating>Escort's Gender</ion-label>
+            <ion-select [(ngModel)]="gender">
+                <ion-option value="Male" selected="true">Male</ion-option>
+                <ion-option value="Female">Female</ion-option>
+            </ion-select>
+        </ion-item>
+
+        <ion-label>2-Ways Trip</ion-label>
+        <ion-list radio-group [(ngModel)]="twowaytrip">
+            <ion-row>
+                <ion-col col-6 col-md-6 col-sm-6>
+                    <ion-item>
+                        <ion-label>Yes</ion-label>
+                        <ion-radio value="yes" checked></ion-radio>
+                    </ion-item>
+                </ion-col>
+
+                <ion-col col-6 col-md-6 col-sm-6>
+                    <ion-item>
+                        <ion-label>No</ion-label>
+                        <ion-radio value="no"></ion-radio>
+                    </ion-item>
+                </ion-col>
+            </ion-row>
+        </ion-list>
+
 
 
         <ion-item>
+            <ion-label floating>Allow Carpooling?</ion-label>
+            <ion-select [(ngModel)]="carpool">
+                <ion-option value="Yes" selected="true">Yes</ion-option>
+                <ion-option value="No">No</ion-option>
+            </ion-select>
+        </ion-item>
+
+        <!--Insert voice recording/image-->
+        <ion-item>
+            <ion-label floating>Upload Image/Vid</ion-label>
+            <ion-select [(ngModel)]="carpool">
+                <ion-option value="Yes" selected="true">Yes</ion-option>
+                <ion-option value="No">No</ion-option>
+            </ion-select>
+        </ion-item>
+
+        <ion-item>
+            <ion-label floating>Contact No. Of Family Member</ion-label>
+            <ion-input type="tel" [(ngModel)]="contact"></ion-input>
+        </ion-item>
+
+        <!--<ion-item>
             <ion-label>All Day?</ion-label>
             <ion-checkbox [(ngModel)]="event.allDay"></ion-checkbox>
-        </ion-item>
+        </ion-item>-->
     </ion-list>
 
-    <button ion-button full icon-left (click)="save(event.title, event.startTime)">
+    <button ion-button full icon-left (click)="save(location, startTime, assistance, twowaytrip, duration, contact)">
     <!--<button ion-button full icon-left (click)="save()">-->
     <ion-icon name="checkmark"></ion-icon> Add Booking
   </button>

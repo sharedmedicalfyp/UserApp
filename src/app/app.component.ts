@@ -9,6 +9,7 @@ import { MapComponent } from '../components/map/map';
 import { AboutPage } from '../pages/about/about';
 import { BookingPage } from '../pages/booking/booking';
 import { TabsPage } from '../pages/tabs/tabs';
+import { CalendarPage } from '../pages/calendar/calendar';
 // import { PickupDirective } from '../components/pickup/pickup';
 import { SplitPane } from '../providers/split-pane/split-pane';
 import { AngularFireAuth } from 'angularfire2/auth';
@@ -19,10 +20,13 @@ import { AngularFireAuth } from 'angularfire2/auth';
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
    bookingPage = BookingPage;
+   calendarPage = CalendarPage;
   // rootPage:any = HomePage;
    rootPage:any = LoginPage;
   // rootPage:any = TabsPage;
    shouldShowPane = false;
+
+    pages: Array<{title: string, component: any}>;
 
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen,
   public splitPlane: SplitPane, public app:App, public menu: MenuController,
@@ -32,8 +36,29 @@ export class MyApp {
       // Here you can do any higher level native things you might need.
       statusBar.styleDefault();
       splashScreen.hide();
+
+      this.afAuth.authState.subscribe(auth => {
+      if(!auth)
+         this.rootPage = LoginPage;
+      //   this.pages = [
+      //  { title: 'Bookings', component: BookingPage },
+      //  { title: 'About Us', component: AboutPage }
+      //  ];
+      else
+      this.pages = [
+       { title: 'Bookings', component: BookingPage },
+       { title: 'About Us', component: AboutPage }
+       ];
+    });
+
     });
   }
+   openPage(page) {
+    // Reset the content nav to have just this page
+    // we wouldn't want the back button to show in this scenario
+    this.nav.setRoot(page.component);
+  }
+
 
   backToWelcome(){
     const root = this.app.getRootNav();

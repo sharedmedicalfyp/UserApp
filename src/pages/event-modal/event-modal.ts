@@ -37,29 +37,31 @@ export class EventModalPage {
   }
  
   // Firebase
-  // save(title, startTime) {
+  save(location, startTime, assistance, twowaytrip, duration, contact) {
 
-  //   this.itemRef.push({
-  //           // Title: title,
-  //           // Starttime: startTime
-  //           // Timeslot: timeslot,
-  //           // Assistance: assistance,
-  //           // TwoWayTrip: twowaytrip,
-  //           // Duration: duration,
-  //           // Contact: contact,
-  //           // Status: "",
-  //           // DriverName: "",
-  
-  //            }) //}
+    this.itemRef.push({
+            // Title: title,
 
-  //   this.viewCtrl.dismiss(this.event);
+            Address: location,
+            Starttime: startTime,
+            Assistance: assistance,
+            TwoWayTrip: twowaytrip,
+            Duration: duration,
+            Contact: contact,
+            Status: "",
+            Driver: "",
+           })
 
-  // }
+               console.log(startTime);
 
-  // JS
-   save() {
     this.viewCtrl.dismiss(this.event);
 
   }
+
+  // JS
+  //  save() {
+  //   this.viewCtrl.dismiss(this.event);
+
+  // }
 
 }
