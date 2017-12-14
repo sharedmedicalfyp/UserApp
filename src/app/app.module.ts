@@ -27,6 +27,10 @@ import { SplitPane } from '../providers/split-pane/split-pane';
 import { NgCalendarModule  } from 'ionic2-calendar';
 import { CalendarPage } from '../pages/calendar/calendar';
 
+import {AccordionComponent} from '../components/accordion/accordion';
+import { FaqPage } from '../pages/faq/faq';
+import { HttpModule } from '@angular/http';
+
 // AF2 Settings
 export const firebaseConfig = {
  apiKey: "AIzaSyCFU9g3inPp81yQU14fYANC7vf31SpkqKk",
@@ -47,11 +51,14 @@ export const firebaseConfig = {
     BookingPage,
     ContactPage,
     TabsPage,
-    CalendarPage
+    CalendarPage,
+    AccordionComponent,
+    FaqPage
   ],
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
+    HttpModule,
     //AngularFireModule.initializeApp(environment.firebase), // Connection string
     AngularFireModule.initializeApp(firebaseConfig),
     AngularFireAuthModule,    // AngularFire
@@ -68,7 +75,8 @@ export const firebaseConfig = {
     BookingPage,
     ContactPage,
     TabsPage,
-    CalendarPage
+    CalendarPage,
+    FaqPage
   ],
   providers: [
     StatusBar,

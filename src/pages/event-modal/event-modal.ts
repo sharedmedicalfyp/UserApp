@@ -44,15 +44,17 @@ export class EventModalPage {
 
             Address: location,
             Starttime: startTime,
+            Endtime: startTime,
+            Duration: duration,
             Assistance: assistance,
             TwoWayTrip: twowaytrip,
-            Duration: duration,
             Contact: contact,
             Status: "",
             Driver: "",
+            ROD: "",
+            Payment: ""
            })
-
-               console.log(startTime);
+              //  console.log(startTime);
 
     this.viewCtrl.dismiss(this.event);
 

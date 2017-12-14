@@ -7,6 +7,7 @@ import { ContactPage } from '../contact/contact';
 import { BookingPage } from '../booking/booking';
 import { TabsPage }  from '../tabs/tabs';
 import { CalendarPage } from '../calendar/calendar';
+import { FaqPage } from '../faq/faq';
 
 // Firebase
 import { AngularFireDatabase, AngularFireObject, AngularFireList } from 'angularfire2/database';
@@ -27,9 +28,11 @@ export class LoginPage {
   calendarPage = CalendarPage;
   aboutPage = AboutPage;
   bookingPage = BookingPage;
+  faqPage = FaqPage;
+  contactPage = ContactPage;
 
   items: Observable<any[]>;
-  items2: AngularFireList<any[]>;
+ // items2: AngularFireList<any[]>;
 
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public angularFireAuth: AngularFireAuth

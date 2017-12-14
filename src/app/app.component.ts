@@ -14,6 +14,7 @@ import { CalendarPage } from '../pages/calendar/calendar';
 import { SplitPane } from '../providers/split-pane/split-pane';
 import { AngularFireAuth } from 'angularfire2/auth';
 
+
 @Component({
   templateUrl: 'app.html',
 })

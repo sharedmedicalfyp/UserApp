@@ -27,16 +27,40 @@
         </ion-item>-->
 
         <ion-item>
+            <ion-label>Date</ion-label>
+            <ion-datetime displayFormat="MM/DD/YYYY" pickerFormat="YYYY-MM-DD" [(ngModel)]="Date" [min]="minDate"></ion-datetime>
+        </ion-item>
+
+        <ion-label>2-Ways Trip?</ion-label>
+        <ion-list radio-group [(ngModel)]="twowaytrip">
+            <ion-row>
+                <ion-col col-6 col-md-6 col-sm-6>
+                    <ion-item>
+                        <ion-label>Yes</ion-label>
+                        <ion-radio value="yes" checked></ion-radio>
+                    </ion-item>
+                </ion-col>
+
+                <ion-col col-6 col-md-6 col-sm-6>
+                    <ion-item>
+                        <ion-label>No</ion-label>
+                        <ion-radio value="no"></ion-radio>
+                    </ion-item>
+                </ion-col>
+            </ion-row>
+        </ion-list>
+
+        <ion-item>
             <ion-label>Start Time</ion-label>
-            <ion-datetime displayFormat="MM/DD/YYYY HH:mm" pickerFormat="YYYY-MM-DD:HH:mm" [(ngModel)]="startTime" [min]="minDate"></ion-datetime>
+            <ion-datetime displayFormat="MM/DD/YYYY" pickerFormat="HH:mm" [(ngModel)]="startTime" [min]="minDate"></ion-datetime>
         </ion-item>
 
         <ion-item>
             <ion-label>End Time</ion-label>
-            <ion-datetime displayFormat="MM/DD/YYYY HH:mm" pickerFormat="YYYY-MM-DD:HH:mm" [(ngModel)]="startTime" [min]="minDate"></ion-datetime>
+            <ion-datetime displayFormat="MM/DD/YYYY HH:mm" pickerFormat="HH:mm" [(ngModel)]="endTime" [min]="minDate"></ion-datetime>
         </ion-item>
 
-        <!--Add the pricing with calcuation by hrs-->
+        <!--(Dynamic) Add the pricing with calcuation by  Start & End Time-->
         <ion-item>
             <ion-label floating>Stay-Thru (Duration)</ion-label>
             <ion-select [(ngModel)]="duration" placeholder="Select Duration">
@@ -95,27 +119,6 @@
             </ion-select>
         </ion-item>
 
-        <ion-label>2-Ways Trip</ion-label>
-        <ion-list radio-group [(ngModel)]="twowaytrip">
-            <ion-row>
-                <ion-col col-6 col-md-6 col-sm-6>
-                    <ion-item>
-                        <ion-label>Yes</ion-label>
-                        <ion-radio value="yes" checked></ion-radio>
-                    </ion-item>
-                </ion-col>
-
-                <ion-col col-6 col-md-6 col-sm-6>
-                    <ion-item>
-                        <ion-label>No</ion-label>
-                        <ion-radio value="no"></ion-radio>
-                    </ion-item>
-                </ion-col>
-            </ion-row>
-        </ion-list>
-
-
-
         <ion-item>
             <ion-label floating>Allow Carpooling?</ion-label>
             <ion-select [(ngModel)]="carpool">
@@ -127,7 +130,7 @@
         <!--Insert voice recording/image-->
         <ion-item>
             <ion-label floating>Upload Image/Vid</ion-label>
-            <ion-select [(ngModel)]="carpool">
+            <ion-select [(ngModel)]="uploads">
                 <ion-option value="Yes" selected="true">Yes</ion-option>
                 <ion-option value="No">No</ion-option>
             </ion-select>
