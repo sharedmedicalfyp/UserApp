@@ -52,15 +52,15 @@
 
         <ion-item>
             <ion-label>Start Time</ion-label>
-            <ion-datetime displayFormat="MM/DD/YYYY" pickerFormat="HH:mm" [(ngModel)]="startTime" [min]="minDate"></ion-datetime>
+            <ion-datetime displayFormat="h:mm a" pickerFormat="HH:mm" [(ngModel)]="startTime" [min]="minDate"></ion-datetime>
         </ion-item>
 
         <ion-item>
             <ion-label>End Time</ion-label>
-            <ion-datetime displayFormat="MM/DD/YYYY HH:mm" pickerFormat="HH:mm" [(ngModel)]="endTime" [min]="minDate"></ion-datetime>
+            <ion-datetime displayFormat="h:mm a" pickerFormat="HH:mm" [(ngModel)]="endTime" [min]="minDate"></ion-datetime>
         </ion-item>
 
-        <!--(Dynamic) Add the pricing with calcuation by  Start & End Time-->
+        <!--(Dynamic) Add the pricing with calcuation by Start & End Time-->
         <ion-item>
             <ion-label floating>Stay-Thru (Duration)</ion-label>
             <ion-select [(ngModel)]="duration" placeholder="Select Duration">
@@ -100,17 +100,17 @@
             <ion-input type="location" [(ngModel)]="location"></ion-input>
         </ion-item>
 
-        <!-- Change this to checkbox-->
+        <!-- Change this to checkbox with several options-->
         <ion-item>
             <ion-label floating>Require Assistance?</ion-label>
             <ion-select [(ngModel)]="assistance">
-                <ion-option value="No" selected="true">Able to walk</ion-option>
+                <ion-option value="No" selected="true">No</ion-option>
                 <ion-option value="Wheelchair">Wheel-chair with client</ion-option>
                 <ion-option value="Accompany">Accompany person from family</ion-option>
             </ion-select>
         </ion-item>
 
-        <!--Enable tis if they require assistance from the above-->
+        <!--Disable first. Enable tis if they require assistance from the above ^ -->
         <ion-item>
             <ion-label floating>Escort's Gender</ion-label>
             <ion-select [(ngModel)]="gender">
@@ -128,12 +128,15 @@
         </ion-item>
 
         <!--Insert voice recording/image-->
+        <!--<ion-item>
+            <ion-label >Upload Image/Vid</ion-label>
+            <ion-input type="file" [(ngModel)]="uploads"></ion-input>
+        </ion-item>-->
+
         <ion-item>
-            <ion-label floating>Upload Image/Vid</ion-label>
-            <ion-select [(ngModel)]="uploads">
-                <ion-option value="Yes" selected="true">Yes</ion-option>
-                <ion-option value="No">No</ion-option>
-            </ion-select>
+            <label class="item item-input"> <input type="file" id="upimgfile" name="uploadfile" ng-model="orderDetails.uploadfile">
+        </label>
+            <div class="preview-img"> <img id="myImage" width="150" height="150" size="30" /> </div>
         </ion-item>
 
         <ion-item>

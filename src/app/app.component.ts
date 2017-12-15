@@ -13,7 +13,7 @@ import { CalendarPage } from '../pages/calendar/calendar';
 // import { PickupDirective } from '../components/pickup/pickup';
 import { SplitPane } from '../providers/split-pane/split-pane';
 import { AngularFireAuth } from 'angularfire2/auth';
-
+import { ProfilePage } from '../pages/profile/profile';
 
 @Component({
   templateUrl: 'app.html',
@@ -40,17 +40,33 @@ export class MyApp {
 
       this.afAuth.authState.subscribe(auth => {
       if(!auth)
-         this.rootPage = LoginPage;
-      //   this.pages = [
-      //  { title: 'Bookings', component: BookingPage },
-      //  { title: 'About Us', component: AboutPage }
-      //  ];
+        this.rootPage = CalendarPage;
       else
-      this.pages = [
-       { title: 'Bookings', component: BookingPage },
-       { title: 'About Us', component: AboutPage }
-       ];
-    });
+        this.rootPage= LoginPage;
+       });
+
+       this.pages = [
+        { title: 'Profile', component: ProfilePage },
+        { title: 'About Us', component: AboutPage },
+        { title: 'Bookings', component: BookingPage },
+        { title: 'Logout', component: LoginPage },
+    ];
+
+      // this.afAuth.authState.subscribe(auth => {
+      // if(!auth)
+      //    this.rootPage = LoginPage;
+      // //   this.pages = [
+      // //  { title: 'Bookings', component: BookingPage },
+      // //  { title: 'About Us', component: AboutPage }
+      // //  ];
+      // else
+    //   this.pages = [
+    //   // { title: 'Profile', component: ProfilePage },
+    //    { title: 'Bookings', component: BookingPage },
+    //    { title: 'About Us', component: AboutPage },
+    //    { title: 'Logout', component: null },
+    //    ];
+    // });
 
     });
   }
@@ -71,6 +87,11 @@ export class MyApp {
     this.menu.enable(false);
     setTimeout(()=> this.backToWelcome(), 1000);
   }
+
+  // logout(){
+  //   this.menu.close();
+  //     this.nav.setRoot(LoginPage);
+  // }
 
     signOut() {
     this.afAuth.auth.signOut();

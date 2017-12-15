@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angul
 import * as moment from 'moment';
 import { AngularFireDatabase, AngularFireList, AngularFireObject } from 'angularfire2/database';
 import { Observable } from 'rxjs/Observable';
+import { BookingPage } from '../booking/booking';
 /**
 
 /**
@@ -37,14 +38,14 @@ export class EventModalPage {
   }
  
   // Firebase
-  save(location, startTime, assistance, twowaytrip, duration, contact) {
+  save(location, date, startTime, endTime, assistance, twowaytrip, duration, contact) {
 
     this.itemRef.push({
-            // Title: title,
 
             Address: location,
+            Date: date,
             Starttime: startTime,
-            Endtime: startTime,
+            Endtime: endTime,
             Duration: duration,
             Assistance: assistance,
             TwoWayTrip: twowaytrip,
@@ -53,11 +54,13 @@ export class EventModalPage {
             Driver: "",
             ROD: "",
             Payment: ""
+
            })
               //  console.log(startTime);
 
     this.viewCtrl.dismiss(this.event);
-
+    this.navCtrl.push(BookingPage);
+    
   }
 
   // JS

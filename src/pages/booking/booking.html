@@ -7,118 +7,20 @@
 <ion-header>
 
     <ion-navbar>
-        <ion-title>Make a Booking</ion-title>
+        <button ion-button menuToggle>
+            <ion-icon name="menu"></ion-icon>
+       </button>
+        <ion-title>List of Bookings</ion-title>
     </ion-navbar>
 
 </ion-header>
 
 <ion-content padding>
+
     <ion-list>
-        <ion-item>
-            <ion-label floating>Location Pickup (Address)</ion-label>
-            <ion-input type="location" [(ngModel)]="location" placeholder="Location"></ion-input>
-        </ion-item>
-
-        <ion-row>
-            <ion-col col-6 col-md-6 col-sm-6>
-                <ion-label>Select a date</ion-label>
-                <ion-item>
-                    <ion-input type="date" [(ngModel)]="date"></ion-input>
-                </ion-item>
-            </ion-col>
-
-            <ion-col col-6 col-md-6 col-sm-6>
-                <ion-label>Select a Timeslot</ion-label>
-                <ion-list>
-                    <ion-row>
-                        <ion-select [(ngModel)]="timeslot">
-                            <ion-option value="0800-0900" selected="true">0800-0900</ion-option>
-                            <ion-option value="0900-1000">0900-1000</ion-option>
-                            <ion-option value="1000-1100">1000-1100</ion-option>
-                            <ion-option value="1100-1200">1100-1200</ion-option>
-                            <ion-option value="1200-1300">1200-1300</ion-option>
-                            <ion-option value="1300-1400">1300-1400</ion-option>
-                            <ion-option value="1400-1500">1400-1500</ion-option>
-                            <ion-option value="1500-1600">1500-1600</ion-option>
-                            <ion-option value="1600-1700">1600-1700</ion-option>
-                            <ion-option value="1700-1800">1700-1800</ion-option>
-                            <ion-option value="1900-2000">1900-2000</ion-option>
-                            <ion-option value="2000-2100">2000-2100</ion-option>
-                            <ion-option value="2100-2200">2100-2200</ion-option>
-                            <ion-option value="2200-2300">2200-2300</ion-option>
-                        </ion-select>
-                    </ion-row>
-                </ion-list>
-            </ion-col>
-        </ion-row>
-
-        <ion-label>Need Assistance?</ion-label>
-        <ion-list>
-            <ion-row>
-                <ion-col col-12 col-md-12 col-sm-12>
-                    <ion-select [(ngModel)]="assistance">
-                        <ion-option value="No" selected="true">Able to walk</ion-option>
-                        <ion-option value="Wheelchair">Wheel-chair with client</ion-option>
-                        <ion-option value="Accompany">Accompany person from family</ion-option>
-                    </ion-select>
-                </ion-col>
-            </ion-row>
-        </ion-list>
-
-        <ion-label>2-Ways Trip</ion-label>
-        <ion-list radio-group [(ngModel)]="twowaytrip">
-            <ion-row>
-                <ion-col col-6 col-md-6 col-sm-6>
-                    <ion-item>
-                        <ion-label>Yes</ion-label>
-                        <ion-radio value="yes" checked></ion-radio>
-                    </ion-item>
-                </ion-col>
-
-                <ion-col col-6 col-md-6 col-sm-6>
-                    <ion-item>
-                        <ion-label>No</ion-label>
-                        <ion-radio value="no"></ion-radio>
-                    </ion-item>
-                </ion-col>
-            </ion-row>
-        </ion-list>
-
-        <!--<ion-label floating>Stay-Thru (Duration)</ion-label>
-        <ion-item>
-            <ion-select [(ngModel)]="duration" placeholder="Select Duration">
-                <ion-option value="1 Hour" selected="true">1 Hour</ion-option>
-                <ion-option value="2 Hours">2 Hours</ion-option>
-                <ion-option value="3 Hours">3 Hours</ion-option>
-                <ion-option value="4 Hours">4 Hours</ion-option>
-                <ion-option value="5 Hours">5 Hours</ion-option>
-                <ion-option value="6 Hours">6 Hours</ion-option>
-            </ion-select>
-        </ion-item>
-
-        <ion-label floating>Escort's Gender</ion-label>
-        <ion-item>
-            <ion-select [(ngModel)]="gender">
-                <ion-option value="Male" selected="true">Male</ion-option>
-                <ion-option value="Female">Female</ion-option>
-            </ion-select>
-        </ion-item>-->
-
-        <ion-item>
-            <ion-label floating>Contact No. Of Family Member</ion-label>
-            <ion-input type="contact" [(ngModel)]="contact"></ion-input>
+        <ion-item *ngFor="let item of items; let i = index" (click)="gotoPage(i)">
+            <p>Time: {{ item.Starttime }}</p>
         </ion-item>
     </ion-list>
-
-    <ion-buttons end>
-        <button ion-button color="blue" (click)="createBooking(location,date,timeslot,assistance,twowaytrip,duration,contact)">
-            Book Now   </button>
-        <!--<ion-icon name="add"></ion-icon>-->
-    </ion-buttons>
-
-    <!--<ion-list>
-        <ion-item *ngFor="let booking of bookings | async" (click)="showOptions(booking.id, booking.title)">
-        </ion-item>
-    </ion-list>-->
 
 </ion-content>

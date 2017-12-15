@@ -30,6 +30,9 @@ import { CalendarPage } from '../pages/calendar/calendar';
 import {AccordionComponent} from '../components/accordion/accordion';
 import { FaqPage } from '../pages/faq/faq';
 import { HttpModule } from '@angular/http';
+import { BookingdetailsPage } from '../pages/bookingdetails/bookingdetails';
+import { ProfilePage } from '../pages/profile/profile';
+
 
 // AF2 Settings
 export const firebaseConfig = {
@@ -53,7 +56,9 @@ export const firebaseConfig = {
     TabsPage,
     CalendarPage,
     AccordionComponent,
-    FaqPage
+    FaqPage,
+    BookingdetailsPage,
+    ProfilePage
   ],
   imports: [
     BrowserModule,
@@ -76,7 +81,9 @@ export const firebaseConfig = {
     ContactPage,
     TabsPage,
     CalendarPage,
-    FaqPage
+    FaqPage,
+    BookingdetailsPage,
+    ProfilePage
   ],
   providers: [
     StatusBar,
