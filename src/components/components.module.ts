@@ -1,14 +1,16 @@
 import { NgModule } from '@angular/core';
 import { MapComponent } from './map/map';
-import { PickupComponent } from './pickup/pickup';
+import { PickupDirective } from './pickup/pickup';
 import { AccordionComponent } from './accordion/accordion';
+
 @NgModule({
 	declarations: [MapComponent,
-    PickupComponent,
+    PickupDirective,
     AccordionComponent],
 	imports: [],
 	exports: [MapComponent,
-    PickupComponent,
+    // PickupComponent,
+    PickupDirective,
     AccordionComponent]
 })
 export class ComponentsModule {}

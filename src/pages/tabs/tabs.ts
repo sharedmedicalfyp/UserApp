@@ -17,16 +17,19 @@ import { CalendarPage } from '../calendar/calendar';
   templateUrl: 'tabs.html',
 })
 export class TabsPage {
-  calendarPage = CalendarPage;
-  homePage = HomePage;
-  aboutPage = AboutPage;
-  contactPage = ContactPage;
+
+  calendarPage: any = CalendarPage;
+  homePage: any = HomePage;
+  aboutPage: any = AboutPage;
+  contactPage: any = ContactPage;
+  mySelectedIndex: number;
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad TabsPage');
+    this.mySelectedIndex = this.navParams.data.tabIndex || 0;
   }
 
 }

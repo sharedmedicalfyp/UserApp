@@ -6,13 +6,36 @@
 -->
 <ion-header>
 
-  <ion-navbar>
-    <ion-title>forgotpwd</ion-title>
+  <ion-navbar color="ionic">
+    <ion-title>Forgot Password</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
+
+  <!-- <ion-item>
+        <ion-label>Email:</ion-label>
+        <ion-input type="input" [(ngModel)]="email"></ion-input>
+    </ion-item>
+
+    <br>
+
+    <button ion-button block (click)="sendPassword(email)">Send</button> -->
+
+  <ion-list>
+      <form [formGroup]="myForm">
+          <ion-item class="row">
+            <ion-label color="primary">Email: </ion-label>
+            <ion-input type="email" formControlName="email" placeholder="Enter your email here." text-wrap></ion-input>
+          </ion-item>
+         
+      </form>
+  </ion-list>
+    <br>
+
+     <button ion-button block text-center (click)="resetPassword()" [disabled]="!myForm.valid">Reset Password</button>
+
 
 </ion-content>

@@ -1,16 +1,17 @@
 page-faq {
     .accordion-list {
-        padding: 0px 16px;
+        padding: 10px 20px;
         background: color($colors, light);
         height: 100%;
+
     }
     .section {
-        background: yellow;
+        background: #AFB6FF;
         color: #000;
         margin-bottom: 4px;
     }
     .section-active {
-        background: blue;
+        background: #2DB5C4;
         color: #fff;
     }
     .child {

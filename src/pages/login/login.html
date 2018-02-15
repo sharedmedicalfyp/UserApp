@@ -6,11 +6,11 @@
 -->
 <ion-header>
 
-    <ion-navbar>
+    <ion-navbar color="ionic">
         <!--<button ion-button menuToggle>
             <ion-icon name="menu"></ion-icon>
        </button>-->
-        <ion-title>Login</ion-title>
+        <ion-title>MediCar App</ion-title>
     </ion-navbar>
 
 
@@ -19,9 +19,9 @@
 
 
 <ion-content padding>
-    <h1 text-center>Medical Escorts Booking App</h1>
+    <h1 text-center>Login Here</h1>
 
-    <img class="img-responsive" src="../../img/login.jpg">
+    <img class="img-responsive" src="assets/img/login.jpg">
 
     <ion-item>
         <ion-label>Email:</ion-label>
@@ -32,18 +32,33 @@
         <ion-label>Password:</ion-label>
         <ion-input type="password" [(ngModel)]="password"></ion-input>
     </ion-item>
+    <br>
 
     <div text-center>
-        <button ion-button (click)="register(email, password)">Register</button>
-        <button ion-button (click)="login(email, password)">Login</button>
-        <button ion-button (click)="sendPassword(email)">Reset Password</button>
-        <!--<button ion-button (click)="sendEmailVerification()">Resend email verification</button>-->
+        <!-- <button ion-button (click)="register(email, password)">Register</button> -->
+   
+        <!-- <ion-col col-6> -->
+            <button block ion-button color="darkblue" (click)="Login()">Login</button>
+            <button ion-button class="width" color="danger" (click)="register()">Register Here</button>
+            <button ion-button class="width" color="yellow" (click)="sendPassword()">Reset Password</button>
+        <!-- </ion-col> -->
+        <!-- <button ion-button (click)="Login()" [disabled]="!email || !password">Login</button> -->
+        <!-- <ion-col col-6> -->
+            
+        <!-- </ion-col> -->
+
+
+        <!-- <button ion-button (click)="sendPassword()">Reset Password</button> -->
+        <!-- <button ion-button (click)="sendEmailVerification()">Resend email verification</button>-->
     </div>
-    <button ion-button [navPush]="aboutPage">Go To About</button>
-    <button ion-button [navPush]="bookingPage">Go To Booking</button>
-    <button ion-button [navPush]="calendarPage">Go To Calendar</button>
-    <button ion-button [navPush]="faqPage">FAQ</button>
-    <button ion-button [navPush]="contactPage">Contact</button>
+      <!-- <button ion-button [navPush]="bookingPage">Go To Book</button>
+      <button ion-button [navPush]="historyPage">Go To Hist</button> -->
+     <!-- <button ion-button [navPush]="ratingPage">Go To Rating</button> -->
+    <!-- <button ion-button [navPush]="calendarPage">Go To Calendar</button>   -->
+    <!-- <button ion-button [navPush]="updatefamilydetailsPage">Fam Profile</button> -->
+    <!-- <button ion-button [navPush]="aboutPage">Go To About</button>
+        <button ion-button [navPush]="faqPage">FAQ</button>
+    <button ion-button [navPush]="contactPage">Contact</button>    -->
 
 
     <!--<ion-list>

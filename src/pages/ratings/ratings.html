@@ -1,0 +1,51 @@
+<!--
+  Generated template for the RatingsPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<!-- <ion-header>
+
+  <ion-navbar>
+    <ion-title>ratings</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+</ion-content> -->
+
+<ion-content class="primary-bg">
+   <!-- <div class="light-bg" padding text-center>
+    <h5 ion-text color="gray">Fare</h5>
+    <h2 ion-text color="white">
+       {{ trip.currency }} {{ trip.fee }}  
+    </h2>
+  </div>  -->
+  <div padding text-center>
+    <h1 ion-text color="white">
+      Thank you for using our service!
+    </h1>
+    <div class="driver-picture">
+      <!-- <img class="circle" src="{{ (driver)?.photoURL }}" alt=""/> -->
+       <img class="circle" [src]="base64Image" alt=""/>
+    </div>
+    <div padding-top>
+      <span ion-text color="light">Please rate my service</span>
+      <div class="stars">
+        <ion-icon name="md-star" color="{{ (rating < 1) ? 'light' : 'yellow' }}" (click)="rate(1)"></ion-icon>
+        <ion-icon name="md-star" color="{{ (rating < 2) ? 'light' : 'yellow' }}" (click)="rate(2)"></ion-icon>
+        <ion-icon name="md-star" color="{{ (rating < 3) ? 'light' : 'yellow' }}" (click)="rate(3)"></ion-icon>
+        <ion-icon name="md-star" color="{{ (rating < 4) ? 'light' : 'yellow' }}" (click)="rate(4)"></ion-icon>
+        <ion-icon name="md-star" color="{{ (rating < 5) ? 'light' : 'yellow' }}" (click)="rate(5)"></ion-icon>
+      </div>
+    </div>
+  </div>
+  <div class="align-bottom" padding [hidden]="rating < 1">
+    <button ion-button block color="light" (click)="submit()">
+      SUBMIT
+    </button>
+  </div>
+</ion-content>

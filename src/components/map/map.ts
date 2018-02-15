@@ -2,10 +2,9 @@ import { Component,OnInit, Input } from '@angular/core';
 import { LoadingController, NavController } from 'ionic-angular';
 import { Geolocation } from '@ionic-native/geolocation';
 import { Observable } from 'rxjs/Observable';
-// import { PickupDirective } from '../pickup/pickup';
+import {PickupDirective} from '../pickup/pickup';
 
-
-declare var google;
+ declare var google;
 /**
  * Generated class for the MapComponent component.
  *
@@ -15,7 +14,7 @@ declare var google;
 @Component({
   selector: 'map',
   templateUrl: 'map.html',
-  // directives: [PickupDirective]
+  //directives: [PickupDirective],
 })
 export class MapComponent implements OnInit {
 

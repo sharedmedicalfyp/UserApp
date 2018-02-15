@@ -5,7 +5,7 @@
   Ionic pages and navigation.
 -->
 <ion-header>
-    <ion-navbar color="primary">
+    <ion-navbar color="ionic">
         <button ion-button menuToggle>
             <ion-icon name="menu"></ion-icon>
        </button>
@@ -14,17 +14,19 @@
         </ion-title>
         <ion-buttons end>
             <button ion-button icon-only (click)="addEvent()">
-        <ion-icon name="add"></ion-icon>
-      </button>
+                <ion-icon name="add"></ion-icon>
+            </button>
+            
+            <!-- <button ion-button icon-only (click)="addCarpool()">
+                <ion-icon name="car"></ion-icon>
+            </button> -->
         </ion-buttons>
     </ion-navbar>
 </ion-header>
 
 <ion-content>
-    <calendar [eventSource]="eventSource" [calendarMode]="calendar.mode" [currentDate]="calendar.currentDate" (onEventSelected)="onEventSelected($event)" (onTitleChanged)="onViewTitleChanged($event)" (onTimeSelected)="onTimeSelected($event)" step="30" class="calendar">
-    </calendar>
-
-    <ion-item class="text" *ngFor="let item of items | async">
-        Start Time: {{item.Starttime}}
-    </ion-item>
+     <calendar [eventSource]="eventSource" [calendarMode]="calendar.mode" [currentDate]="calendar.currentDate" 
+     (onEventSelected)="onEventSelected($event)" (onTitleChanged)="onViewTitleChanged($event)" 
+     (onTimeSelected)="onTimeSelected($event)" [markDisabled]="markDisabled" step="30" class="calendar">
+    </calendar> 
 </ion-content>

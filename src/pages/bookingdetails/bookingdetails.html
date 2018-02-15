@@ -6,41 +6,117 @@
 -->
 <ion-header>
 
-    <ion-navbar>
+    <ion-navbar color="ionic">
         <ion-title>Booking Details</ion-title>
     </ion-navbar>
 
 </ion-header>
 
 <ion-content padding>
-    <ion-list *ngFor="let item of items ">
-        <ion-item>
-            <ion-label color="primary">Address:</ion-label>
-            <ion-label> {{ item.Address }}</ion-label>
-        </ion-item>
-        <ion-item>
-            <ion-label color="primary">Assistance:</ion-label>
-            <ion-label> {{ item.Assistance }}</ion-label>
-        </ion-item>
-        <ion-item>
-            <ion-label color="primary">Contact:</ion-label>
-            <ion-label> {{ item.Contact }}</ion-label>
-        </ion-item>
-        <ion-item>
-            <ion-label color="primary">Duration:</ion-label>
-            <ion-label> {{ item.Duration }}</ion-label>
-        </ion-item>
-        <ion-item>
-            <ion-label color="primary">Start Time:</ion-label>
-            <ion-label> {{ item.Starttime }}</ion-label>
-        </ion-item>
-        <ion-item>
-            <ion-label color="primary">Two Way Trip:</ion-label>
-            <ion-label> {{ item.TwoWayTrip }}</ion-label>
-        </ion-item>
-        <ion-item>
-            <button ion-button class="but" text-center (click)="Edit()"> Edit</button>
-            <button ion-button class="but" text-center (click)="Delete()"> Cancel</button>
-        </ion-item>
-    </ion-list>
+ 
+ 
+  
+     <ion-list *ngFor="let item of items ">
+
+     <form [formGroup]="myForm">
+      <ion-item>
+        <ion-label color="primary">Pickup address:</ion-label>
+        <ion-input formControlName="Pickup" [class.invalid]="!myForm.get('Pickup').valid && (myForm.get('Pickup').dirty || submitAttempt)"
+          placeholder="Text Input" value="{{ item.Pickup }}"></ion-input>
+      </ion-item>
+      <div class="error" *ngIf="!myForm.get('Pickup').valid && myForm.get('Pickup').touched">
+        <p>Please enter a valid pickup address.</p>
+      </div>
+
+      <ion-item>
+        <ion-label color="primary" text-wrap>Destination Address:</ion-label>
+        <ion-input formControlName="Destination"  value="{{ item.Destination }}" placeholder="Destination Address" [class.invalid]="!myForm.get('Destination').valid  && (myForm.get('Destination').dirty || submitAttempt)"></ion-input>
+      </ion-item>
+      <div class="error" *ngIf="!myForm.get('Destination').valid && myForm.get('Destination').touched">
+        <p>Please enter a valid destination address</p>
+      </div>
+
+      <ion-item>
+        <ion-label color="primary" text-wrap>Assistance:</ion-label>
+        <ion-input formControlName="Assistance" value="{{ item.Assistance }}" [class.invalid]="!myForm.get('Assistance').valid  && (myForm.get('Assistance').dirty || submitAttempt)"></ion-input>
+      </ion-item>
+
+
+      <ion-item>
+        <ion-label color="primary" text-wrap>Start Time:</ion-label>
+        <ion-input formControlName="startTime" value="{{ item.startTime }}" [class.invalid]="!myForm.get('startTime').valid  && (myForm.get('startTime').dirty || submitAttempt)"></ion-input>
+      </ion-item>
+      <div class="error" *ngIf="!myForm.get('startTime').valid && myForm.get('startTime').touched">
+        <p>Please enter a valid start time.</p>
+      </div>
+
+      <ion-item>
+        <ion-label color="primary" text-wrap>End Time:</ion-label>
+        <ion-input formControlName="endTime" value="{{ item.endTime }}" [class.invalid]="!myForm.get('endTime').valid  && (myForm.get('endTime').dirty || submitAttempt)"></ion-input>
+      </ion-item>
+      <div class="error" *ngIf="!myForm.get('endTime').valid && myForm.get('endTime').touched">
+        <p>Please enter a valid end time.</p>
+      </div>
+
+      <ion-item *ngIf="item.PatientName">
+        <ion-label color="primary">Client 1's Name:</ion-label>
+        <ion-input formControlName="patientName" value="{{ item.PatientName }}" [class.invalid]="!myForm.get('patientName').valid  && (myForm.get('patientName').dirty || submitAttempt)"></ion-input>
+      </ion-item>
+      <div class="error" *ngIf="!myForm.get('patientName').valid && myForm.get('patientName').touched">
+        <p>Please enter a valid patient name.</p>
+      </div>
+
+      <ion-item *ngIf="item.Patient2Name">
+        <ion-label color="primary">Client 2's Name:</ion-label>
+        <ion-input formControlName="patient2Name" value="{{ item.Patient2Name }}" [class.invalid]="!myForm.get('patient2Name').valid  && (myForm.get('patient2Name').dirty || submitAttempt)"></ion-input>
+      </ion-item>
+      <div class="error" *ngIf="!myForm.get('patient2Name').valid && myForm.get('patient2Name').touched">
+        <p>Please enter a valid patient name.</p>
+      </div>
+
+      <ion-item *ngIf="item.Patient3Name">
+        <ion-label color="primary">Client 3's Name:</ion-label>
+        <ion-input formControlName="patient3Name" value="{{ item.Patient3Name }}" [class.invalid]="!myForm.get('patient3Name').valid  && (myForm.get('patient3Name').dirty || submitAttempt)"></ion-input>
+      </ion-item>
+      <div class="error" *ngIf="!myForm.get('patient3Name').valid && myForm.get('patient3Name').touched">
+        <p>Please enter a valid patient name.</p>
+      </div>
+    
+      <ion-item>
+        <ion-label color="primary" text-wrap>Contact No:</ion-label>
+        <ion-input formControlName="Contact" value="{{ item.Contact }}" [class.invalid]="!myForm.get('Contact').valid  && (myForm.get('Contact').dirty || submitAttempt)"></ion-input>
+      </ion-item>
+      <div class="error" *ngIf="!myForm.get('Contact').valid && myForm.get('Contact').touched">
+        <p>Please enter a valid phone number of 8 characters.</p>
+      </div>
+
+     <ion-item>
+        <ion-label color="primary" text-wrap>Secondary Contact No:</ion-label>
+        <ion-input formControlName="SecContact" value="{{ item.SecondaryContact }}" [class.invalid]="!myForm.get('SecContact').valid  && (myForm.get('SecContact').dirty || submitAttempt)"></ion-input>
+      </ion-item>
+      <div class="error" *ngIf="!myForm.get('SecContact').valid && myForm.get('SecContact').touched">
+        <p>Please enter a valid phone number of 8 characters.</p>
+      </div> 
+
+      <ion-item>
+        <ion-label color="primary" text-wrap>Escort's Gender:</ion-label>
+        <ion-input formControlName="EscortsGender" value="{{ item.EscortsGender }}" [class.invalid]="!myForm.get('EscortsGender').valid  && (myForm.get('EscortsGender').dirty || submitAttempt)"></ion-input>
+      </ion-item>
+      <div class="error" *ngIf="!myForm.get('EscortsGender').valid && myForm.get('EscortsGender').touched">
+        <p>Please enter a valid Escort Gender.</p>
+      </div>
+
+    </form> 
+
+        <br>
+        <ion-row>
+            <!-- <ion-col col-6> -->
+            <!-- <button ion-button [disabled]="!isenabled"  (click)="saveItem(item)">Update</button> -->
+               <button ion-button block color="ionic" *ngIf="item.Status === 'Pending'" [disabled]="!isenabled" (click)="Update()">Update Booking</button>
+             <!-- </ion-col>
+             <ion-col col-6> -->
+               <button ion-button color="danger" block *ngIf="item.Status === 'Accepted' || item.Status === 'Pending'" (click)="Cancel()">Cancel Booking</button> 
+             <!-- </ion-col> -->
+        </ion-row>
+    </ion-list> 
 </ion-content>

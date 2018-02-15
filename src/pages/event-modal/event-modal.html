@@ -6,7 +6,7 @@
 -->
 
 <ion-header>
-    <ion-navbar color="primary">
+    <ion-navbar color="ionic">
         <ion-buttons start>
             <button ion-button icon-only (click)="cancel()">
         <ion-icon name="close"></ion-icon>
@@ -17,141 +17,215 @@
 </ion-header>
 
 <ion-content>
-    <ion-list>
-        <!--<ion-item>
-            <ion-input type="text" placeholder="Title" [(ngModel)]="event.title"></ion-input>
-        </ion-item>-->
-
-        <!--<ion-item>
-            <ion-input type="date" [(ngModel)]="date"></ion-input>
-        </ion-item>-->
-
-        <ion-item>
-            <ion-label>Date</ion-label>
-            <ion-datetime displayFormat="MM/DD/YYYY" pickerFormat="YYYY-MM-DD" [(ngModel)]="Date" [min]="minDate"></ion-datetime>
+    <!-- Validations -->
+   <ion-list>
+    <p *ngIf="submitAttempt" style="color: #ea6153;">Please fill out all details accurately.</p>
+    <!-- <ion-list> -->
+    <form [formGroup]="myForm" >
+        <ion-item>  
+            <ion-label color="primary">Date:</ion-label>
+            <ion-datetime displayFormat="MM/DD/YYYY" pickerFormat="YYYY-MM-DD" [class.invalid]="!myForm.get('Date').valid && (myForm.get('Date').dirty || submitAttempt)" [(ngModel)]="event.startTime" [min]="minDate" formControlName="Date"></ion-datetime>
         </ion-item>
-
-        <ion-label>2-Ways Trip?</ion-label>
-        <ion-list radio-group [(ngModel)]="twowaytrip">
-            <ion-row>
-                <ion-col col-6 col-md-6 col-sm-6>
-                    <ion-item>
-                        <ion-label>Yes</ion-label>
-                        <ion-radio value="yes" checked></ion-radio>
-                    </ion-item>
-                </ion-col>
-
-                <ion-col col-6 col-md-6 col-sm-6>
-                    <ion-item>
-                        <ion-label>No</ion-label>
-                        <ion-radio value="no"></ion-radio>
-                    </ion-item>
-                </ion-col>
-            </ion-row>
-        </ion-list>
+        <!-- <div class="error" *ngIf="!myForm.get('Date').valid && myForm.get('Date').touched">
+            <p>Please select a valid date.</p>
+        </div>   -->
 
         <ion-item>
-            <ion-label>Start Time</ion-label>
-            <ion-datetime displayFormat="h:mm a" pickerFormat="HH:mm" [(ngModel)]="startTime" [min]="minDate"></ion-datetime>
+            <ion-label color="primary">Time:</ion-label>
+            <ion-datetime displayFormat="h:mm a" pickerFormat="HH:mm" [class.invalid]="!myForm.get('startTime').valid && (myForm.get('startTime').dirty || submitAttempt)" hourValues="07,08,09,10,11,12,13,14,15,16,17,18,19,20" [(ngModel)]="startTime" [min]="minDate" formControlName="startTime"></ion-datetime>
+        </ion-item>
+        <!-- <div class="error" *ngIf="!myForm.get('startTime').valid && myForm.get('startTime').touched">
+            <p>Please select a time.</p>
+        </div>  -->
+
+        <ion-item text-wrap>
+            <ion-label floating color="primary">Duration</ion-label>
+                <ion-select class="ion-select" formControlName="duration" text-wrap [class.invalid]="!myForm.get('duration').valid && (myForm.get('duration').dirty || submitAttempt)">
+                    <ion-option text-wrap value="1">1 Hour</ion-option>
+                    <ion-option text-wrap value="2">2 Hours</ion-option>
+                    <ion-option text-wrap value="3">3 Hours</ion-option>
+                    <ion-option text-wrap value="4">4 Hours</ion-option>    
+                    <ion-option text-wrap value="5">5 Hours</ion-option>
+                </ion-select>
         </ion-item>
 
         <ion-item>
-            <ion-label>End Time</ion-label>
-            <ion-datetime displayFormat="h:mm a" pickerFormat="HH:mm" [(ngModel)]="endTime" [min]="minDate"></ion-datetime>
+            <ion-label floating color="primary" text-wrap>Pickup Address:</ion-label>
+            <ion-input formControlName="Pickup" [class.invalid]="!myForm.get('Pickup').valid && (myForm.get('Pickup').dirty || submitAttempt)"></ion-input>
         </ion-item>
-
-        <!--(Dynamic) Add the pricing with calcuation by Start & End Time-->
-        <ion-item>
-            <ion-label floating>Stay-Thru (Duration)</ion-label>
-            <ion-select [(ngModel)]="duration" placeholder="Select Duration">
-                <ion-option value="1 Hour" selected="true">1 Hour</ion-option>
-                <ion-option value="2 Hours">2 Hours</ion-option>
-                <ion-option value="3 Hours">3 Hours</ion-option>
-                <ion-option value="4 Hours">4 Hours</ion-option>
-                <ion-option value="5 Hours">5 Hours</ion-option>
-                <ion-option value="6 Hours">6 Hours</ion-option>
-            </ion-select>
-        </ion-item>
-
-        <!--<ion-col col-6 col-md-6 col-sm-6>
-                <ion-label>Select a date</ion-label>
-                <ion-item>
-                    <ion-input type="date" [(ngModel)]="date"></ion-input>
-                </ion-item>
-            </ion-col>
-
-            <ion-col col-6 col-md-6 col-sm-6>
-                <ion-label>Select a Timeslot</ion-label>
-                <ion-list>
-                    <ion-row>
-                        <ion-select [(ngModel)]="timeslot">
-                            <ion-option value="0800-0900" selected="true">8am to 6am</ion-option>
-                            <ion-option value="0900-1000">9pm to 6pm</ion-option>
-                            <ion-option value="1000-1100">10am to 6pm</ion-option>
-                            <ion-option value="1100-1200">1100-1200</ion-option>
-                            <ion-option value="1200-1300">1200-1300</ion-option>
-                        </ion-select>
-                    </ion-row>
-                </ion-list>
-            </ion-col>-->
+        <div class="error" *ngIf="!myForm.get('Pickup').valid && myForm.get('Pickup').touched">
+            <p>Please enter an address.</p>
+        </div> 
 
         <ion-item>
-            <ion-label floating>Location Pickup (Address)</ion-label>
-            <ion-input type="location" [(ngModel)]="location"></ion-input>
+            <ion-label floating color="primary" text-wrap>Destination Address:</ion-label>
+            <ion-input formControlName="destination" [class.invalid]="!myForm.get('destination').valid && (myForm.get('destination').dirty || submitAttempt)"></ion-input>
+        </ion-item>
+        <div class="error" *ngIf="!myForm.get('destination').valid && myForm.get('destination').touched">
+            <p>Please enter an address.</p>
+        </div> 
+
+        <!-- <ion-item>
+            <ion-input (click)="showAddressModal()" [(ngModel)]="address.place" type="text" placeholder="Pick an address">
+            </ion-input>
+        </ion-item> -->
+<!-- 
+         <ion-item>
+            <ion-label>Search your city</ion-label>
+            <ion-input formControlName="placeAutofill" id="googlePlaces" required [class.invalid]="!myForm.get('placeAutofill').valid && (myForm.get('placeAutofill').dirty || submitAttempt)"></ion-input>
+        </ion-item>
+        <div class="error" *ngIf="!myForm.get('placeAutofill').valid && myForm.get('placeAutofill').touched">
+            <p>Please enter an address.</p>
+        </div>  -->
+
+        <ion-item text-wrap>
+            <ion-label floating color="primary">Select family member(s):</ion-label>
+                <ion-select class="ion-select" multiple="true" formControlName="Name" text-wrap [class.invalid]="!myForm.get('Name').valid && (myForm.get('Name').dirty || submitAttempt)">
+                    <ion-option *ngFor="let family of (familys | async)" text-wrap value="{{ family.Name }}">{{ family.Name }}</ion-option>
+                     <!-- <ion-option *ngFor="let family of (familys | async)" text-wrap value="{{ family.Contact }}">{{ family.Contact }}</ion-option>  -->
+                    <!-- <ion-option text-wrap value="Female">Female</ion-option> -->
+                </ion-select>
         </ion-item>
 
-        <!-- Change this to checkbox with several options-->
-        <ion-item>
-            <ion-label floating>Require Assistance?</ion-label>
-            <ion-select [(ngModel)]="assistance">
-                <ion-option value="No" selected="true">No</ion-option>
-                <ion-option value="Wheelchair">Wheel-chair with client</ion-option>
-                <ion-option value="Accompany">Accompany person from family</ion-option>
-            </ion-select>
+        <ion-item text-wrap>
+            <ion-label floating color="primary">Require Assistance?</ion-label>
+                <ion-select class="ion-select" multiple="true" formControlName="Assistance" text-wrap [class.invalid]="!myForm.get('Assistance').valid && (myForm.get('Assistance').dirty || submitAttempt)">
+                    <ion-option text-wrap value="None" selected="true">None</ion-option>
+                    <ion-option text-wrap value="Wheelchair">Wheelchair</ion-option>
+                    <ion-option text-wrap value="WalkingEquipments">Walking equipments</ion-option>
+                    <ion-option text-wrap value="IV">IV Drip Stand</ion-option>
+                    <!-- <ion-option text-wrap value="Accompany">Accompany person from family</ion-option> -->
+                </ion-select>
         </ion-item>
-
-        <!--Disable first. Enable tis if they require assistance from the above ^ -->
-        <ion-item>
-            <ion-label floating>Escort's Gender</ion-label>
-            <ion-select [(ngModel)]="gender">
-                <ion-option value="Male" selected="true">Male</ion-option>
-                <ion-option value="Female">Female</ion-option>
-            </ion-select>
+        <!-- <div class="error" *ngIf="!myForm.get('Assistance').valid && myForm.get('Assistance').touched">
+            <p>Please enter an address.</p>
+        </div>  -->
+            
+        <ion-item text-wrap>
+            <ion-label floating color="primary">Escort's Gender:</ion-label>
+                <ion-select class="ion-select" formControlName="EscortsGender" text-wrap [class.invalid]="!myForm.get('EscortsGender').valid && (myForm.get('EscortsGender').dirty || submitAttempt)">
+                    <ion-option text-wrap value="Male">Male</ion-option>
+                    <ion-option text-wrap value="Female">Female</ion-option>
+                </ion-select>
         </ion-item>
+        <!-- <div class="error" *ngIf="!myForm.get('EscortsGender').valid && myForm.get('EscortsGender').touched">
+            <p>Please enter an address.</p>
+        </div>  -->
 
-        <ion-item>
-            <ion-label floating>Allow Carpooling?</ion-label>
-            <ion-select [(ngModel)]="carpool">
-                <ion-option value="Yes" selected="true">Yes</ion-option>
-                <ion-option value="No">No</ion-option>
-            </ion-select>
+         <!-- <ion-item text-wrap>
+            <ion-label floating color="primary">Allow Carpooling?</ion-label>
+                <ion-select class="ion-select" formControlName="carpool" text-wrap [class.invalid]="!myForm.get('carpool').valid && (myForm.get('carpool').dirty || submitAttempt)">
+                    <ion-option text-wrap value="Yes">Yes</ion-option>
+                    <ion-option text-wrap value="No">No</ion-option>
+                </ion-select>
+        </ion-item>  -->
+
+        <!-- <div class="error" *ngIf="!myForm.get('carpool').valid && myForm.get('carpool').touched">
+            <p>Please enter an address.</p>
+        </div>   -->
+
+        <!--New option-->
+         <ion-item class="fp" text-wrap no-lines>
+           <button ion-button block class="but" text-center (click)="Carpool()">Go Carpool</button>
+        </ion-item> 
+
+        <!-- <ion-item>
+            <ion-label color="primary" text-wrap>Special Needs:</ion-label>
+            <ion-input formControlName="needs" placeholder="(Optional)"></ion-input>
+        </ion-item> -->
+        <!-- <div class="error" *ngIf="!myForm.get('needs').valid && myForm.get('needs').touched">
+            <p>Please enter something valid.</p>
+        </div>  -->
+
+         <ion-item>
+            <ion-label color="primary" text-wrap>Secondary Contact Number:</ion-label>
+            <ion-input formControlName="Secondarytel" placeholder="(Optional)" type="tel" [class.invalid]="!myForm.get('Secondarytel').valid  && (myForm.get('Secondarytel').dirty || submitAttempt)"></ion-input>
         </ion-item>
+        <div class="error" *ngIf="!myForm.get('Secondarytel').valid && myForm.get('Secondarytel').touched">
+            <p>Please enter a valid phone number of 8 characters.</p>
+        </div>
 
-        <!--Insert voice recording/image-->
-        <!--<ion-item>
-            <ion-label >Upload Image/Vid</ion-label>
-            <ion-input type="file" [(ngModel)]="uploads"></ion-input>
-        </ion-item>-->
+    </form>
+  </ion-list>
+ 
+   <button ion-button full icon-left (click)="AddBooking()">
+   <ion-icon name="checkmark"></ion-icon>Add Booking</button>
 
-        <ion-item>
-            <label class="item item-input"> <input type="file" id="upimgfile" name="uploadfile" ng-model="orderDetails.uploadfile">
-        </label>
-            <div class="preview-img"> <img id="myImage" width="150" height="150" size="30" /> </div>
-        </ion-item>
 
-        <ion-item>
-            <ion-label floating>Contact No. Of Family Member</ion-label>
-            <ion-input type="tel" [(ngModel)]="contact"></ion-input>
-        </ion-item>
+   <!-- <button ion-button [disabled]="!myForm.valid || !isenabled" class="react" (click)="Register()">Register</button> -->
+   <!-- <button ion-button class="primary" (click)="Register()">Register</button> -->
 
-        <!--<ion-item>
-            <ion-label>All Day?</ion-label>
-            <ion-checkbox [(ngModel)]="event.allDay"></ion-checkbox>
-        </ion-item>-->
-    </ion-list>
+    <!-- Misc Content -->
 
-    <button ion-button full icon-left (click)="save(location, startTime, assistance, twowaytrip, duration, contact)">
-    <!--<button ion-button full icon-left (click)="save()">-->
-    <ion-icon name="checkmark"></ion-icon> Add Booking
-  </button>
+    <!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCIXMCaVFfmlN6mvST6JkhhNa9INnsyUdU&libraries=places&callback=initAutocomplete"
+        async defer></script>
+    <script>
+      // This example displays an address form, using the autocomplete feature
+      // of the Google Places API to help users fill in the information.
+
+      // This example requires the Places library. Include the libraries=places
+      // parameter when you first load the API. For example:
+      // <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places">
+
+      var placeSearch, autocomplete;
+      var componentForm = {
+        street_number: 'short_name',
+        route: 'long_name',
+        locality: 'long_name',
+        administrative_area_level_1: 'short_name',
+        country: 'long_name',
+        postal_code: 'short_name'
+      };
+
+      function initAutocomplete() {
+        // Create the autocomplete object, restricting the search to geographical
+        // location types.
+        autocomplete = new google.maps.places.Autocomplete(
+            /** @type {!HTMLInputElement} */(document.getElementById('autocomplete')),
+            {types: ['geocode']});
+
+        // When the user selects an address from the dropdown, populate the address
+        // fields in the form.
+        autocomplete.addListener('place_changed', fillInAddress);
+      }
+
+      function fillInAddress() {
+        // Get the place details from the autocomplete object.
+        var place = autocomplete.getPlace();
+
+        for (var component in componentForm) {
+          document.getElementById(component).value = '';
+          document.getElementById(component).disabled = false;
+        }
+        
+        // Get each component of the address from the place details
+        // and fill the corresponding field on the form.
+        for (var i = 0; i < place.address_components.length; i++) {
+          var addressType = place.address_components[i].types[0];
+          if (componentForm[addressType]) {
+            var val = place.address_components[i][componentForm[addressType]];
+            document.getElementById(addressType).value = val;
+          }
+        }
+      }
+
+      // Bias the autocomplete object to the user's geographical location,
+      // as supplied by the browser's 'navigator.geolocation' object.
+      function geolocate() {
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(function(position) {
+            var geolocation = {
+              lat: position.coords.latitude,
+              lng: position.coords.longitude
+            };
+            var circle = new google.maps.Circle({
+              center: geolocation,
+              radius: position.coords.accuracy
+            });
+            autocomplete.setBounds(circle.getBounds());
+          });
+        }
+      }
+    </script> -->
+    
 </ion-content>

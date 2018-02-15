@@ -1,0 +1,90 @@
+<!--
+  Generated template for the ProfiledetailsPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar color="ionic">
+     <button ion-button menuToggle>
+            <ion-icon name="menu"></ion-icon>
+       </button>
+    <ion-title>Profile Details</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content padding>
+
+    <!-- <ion-list text-wrap *ngFor="let item of items ">
+        <ion-item>
+        <ion-label color="primary">Name:</ion-label>
+        <ion-label>{{ item.Name }}</ion-label>
+        </ion-item>
+
+        <ion-item>
+        <ion-label color="primary" text-wrap>Contact Number:</ion-label>
+        <ion-label>{{ item.Tel }}</ion-label>
+        </ion-item>
+
+        <ion-item>
+        <ion-label color="primary">Gender:</ion-label>
+        <ion-label> {{ item.Gender }}</ion-label>
+        </ion-item>
+
+        <ion-item>
+        <ion-label color="primary" class="date">Date of birth:</ion-label>
+         <ion-label> {{ item.DOB }}</ion-label>
+        </ion-item>
+
+        <ion-item>
+        <ion-label color="primary">Age:</ion-label>
+        <ion-label> {{ item.Age }}</ion-label>
+        </ion-item>
+    </ion-list>
+
+    <button ion-button class="primary" block (click)="Update()">Update My Profile</button> -->
+
+    <ion-list *ngFor="let item of items" >
+    <form [formGroup]="myForm">
+      <ion-item>
+        <ion-label color="primary">Name:</ion-label>
+        <ion-input formControlName="Name" [class.invalid]="!myForm.get('Name').valid && (myForm.get('Name').dirty || submitAttempt)"
+          placeholder="Text Input" value="{{ item.Name }}"></ion-input>
+      </ion-item>
+      <div class="error" *ngIf="!myForm.get('Name').valid && myForm.get('Name').touched">
+        <p>Please enter a valid name.</p>
+      </div>
+
+      <ion-item>
+        <ion-label color="primary" text-wrap>Contact:</ion-label>
+        <ion-input formControlName="tel" type="tel"  value="{{ item.Tel }}" placeholder="Tel Input" [class.invalid]="!myForm.get('tel').valid  && (myForm.get('tel').dirty || submitAttempt)"></ion-input>
+      </ion-item>
+      <div class="error" *ngIf="!myForm.get('tel').valid && myForm.get('tel').touched">
+        <p>Please enter a valid phone number of 8 characters.</p>
+      </div>
+
+      <ion-item>
+        <ion-label color="primary">Gender:</ion-label>
+        <ion-label class="genders"> {{ item.Gender}}</ion-label>
+      </ion-item>
+
+      <ion-item>
+        <ion-label color="primary">Date of birth:</ion-label>
+        <ion-datetime class="date" formControlName="myDate" [(ngModel)]="myDate" displayFormat="DD/MM/YYYY" (ionChange)="getAge()" pickerFormat="DDDD MMMM YYYY"></ion-datetime>
+      </ion-item>
+
+      <ion-item>
+        <ion-label color="primary">Age:</ion-label>
+        <ion-input formControlName="age" id="age" type="text" value="{{ item.Age }}" [disabled]="true"></ion-input>
+      </ion-item>
+      <div *ngIf="AgeError">
+        <p>Age must be above 18.</p>
+      </div>
+
+    </form>
+  </ion-list>
+  <button ion-button block color="yellow" (click)="Update()">Update</button>
+
+</ion-content>

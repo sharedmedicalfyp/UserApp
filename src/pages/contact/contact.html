@@ -6,16 +6,19 @@
 -->
 <ion-header>
 
-    <ion-navbar>
+    <ion-navbar color="ionic">
+         <button ion-button menuToggle>
+            <ion-icon name="menu"></ion-icon>
+       </button>
         <ion-title>Contact Us</ion-title>
     </ion-navbar>
 
 </ion-header>
 
-
 <ion-content padding>
-
-    <ion-item>
+    
+    <!-- Retrieve -->
+    <!-- <ion-item>
         <ion-label floating>Name</ion-label>
         <ion-input type="text" [(ngModel)]="name"></ion-input>
     </ion-item>
@@ -28,7 +31,7 @@
     <ion-item>
         <ion-label floating>Contact Number</ion-label>
         <ion-input type="number" [(ngModel)]="contact"></ion-input>
-    </ion-item>
+    </ion-item> -->
 
     <ion-item>
         <ion-label floating>Title</ion-label>
@@ -40,9 +43,11 @@
         <ion-textarea [(ngModel)]="comments"></ion-textarea>
     </ion-item>
 
-    <br><br> Find Us Here!
-    <br><br>
+     <button ion-button full icon-left (click)="save(title, comments)">Submit</button>
 
+    <br> Find Us Here!
+    <br><br>
+    
     <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d15954.653436378336!2d103.8493234!3d1.3786539!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xe5f10ff680eed942!2sNanyang+Polytechnic!5e0!3m2!1sen!2ssg!4v1513238077697" width="400" height="300"
         frameborder="0" style="border:0" allowfullscreen></iframe>
 

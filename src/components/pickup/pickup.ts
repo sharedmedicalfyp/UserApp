@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import {Observable} from 'rxjs/Observable';
 
 /**
  * Generated class for the PickupComponent component.
@@ -10,7 +11,7 @@ import { Component } from '@angular/core';
   selector: 'pickup',
   templateUrl: 'pickup.html'
 })
-export class PickupComponent {
+export class PickupDirective {
 
   text: string;
 
