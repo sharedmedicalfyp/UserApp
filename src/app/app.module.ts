@@ -17,7 +17,6 @@ import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuth } from 'angularfire2/auth';
 // import { AngularFireDatabaseModule} from 'angularfire2/database-deprecated'; // deprecated
 import { AngularFireDatabase } from 'angularfire2/database';
-import { environment } from '../environments/environment';
 
 import { BookingPage } from '../pages/booking/booking';
 import { TabsPage } from '../pages/tabs/tabs';
