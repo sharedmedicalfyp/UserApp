@@ -157,12 +157,12 @@ export class CalendarPage {
                 && items.Status === 'Accepted' || items.Status === 'Pending');
         }).subscribe(time => {
             this.events.length = 0;
-
+            
             time.map(r => {
               
                   var startTime = (new Date(r.Date + " " + r.startTime));
                   var EndTime = (new Date(r.Date + " " + r.endTime));
-                  if(r.Patient3Name){
+                  if(r.Patient3Name != null){
                       this.events.push({
                         title:  r.PatientName + ", " + r.Patient2Name + ", " + r.Patient3Name,
                         key: r.key,
@@ -171,14 +171,17 @@ export class CalendarPage {
                         allDay: false
                     });
                   }
-                  else if(r.Patient2Name){
+                  else if(r.Patient2Name !=null){
+                    console.log(r.Patient2Name);
                       this.events.push({
                           title:  r.PatientName + ", " + r.Patient2Name ,
                           key: r.key,
                           startTime: startTime,
                           endTime: EndTime,
                           allDay: false
+                          
                       });
+                      console.log("event pushed");
                   }
                   else{
                         this.events.push({

@@ -43,7 +43,8 @@ export class LoginPage {
 
   private authState: Observable<firebase.User>;
   private currentUser: firebase.User;
-  public itemRef: firebase.database.Reference = firebase.database().ref('Escorts');
+  //public itemRef: firebase.database.Reference = firebase.database().ref('Escorts');
+  itemRef:any;
   email: '';
   password: '';
   name="";
@@ -54,7 +55,7 @@ export class LoginPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private toastCtrl: ToastController, public afAuth: AngularFireAuth
   ,public alertCtrl: AlertController,  public loadingCtrl: LoadingController, private afDB: AngularFireDatabase) {
-    
+   this.itemRef = this.afDB.database.ref('Users');    
     // Retrieve list of items
     // this.items = afDB.list('Bookings').valueChanges();
   }
@@ -125,8 +126,8 @@ export class LoginPage {
                 snap.forEach(itemSnap => {
             
                   this.name = itemSnap.child("Name").val();
+                  console.log(this.name);
                    window.localStorage.setItem('Name', this.name);
-                  return false;
 
                 });
               }),

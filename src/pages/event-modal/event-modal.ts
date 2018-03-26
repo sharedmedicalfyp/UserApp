@@ -131,6 +131,8 @@ export class EventModalPage {
   ionViewDidLoad() {
     this.key = this.navParams.get('key');
     this.email = window.localStorage.getItem('Email');
+    this.name = window.localStorage.getItem('Name');
+    console.log(window.localStorage.getItem('Name'));
 
      this.items = [];
      var appData = window.localStorage.getItem('Email');
@@ -210,7 +212,9 @@ export class EventModalPage {
 
         else if ((this.myForm.value.Name[2])) {
           console.log('3 patients');
-
+          let key:string = this.myForm.value.Name[0].Key;
+          let key2:string = this.myForm.value.Name[1].Key;
+          let key3:string = this.myForm.value.Name[2].Key;      
             this.itemsRef.push({
               Date: this.myForm.value.Date,
               startTime: this.myForm.value.startTime,
@@ -224,9 +228,13 @@ export class EventModalPage {
               Carpool: 'No',
               Needs: this.myForm.value.needs,
               Email: this.email,
-              PatientName: this.myForm.value.Name[0],
-              Patient2Name: this.myForm.value.Name[1],
-              Patient3Name: this.myForm.value.Name[2],
+              ClientName: this.name,
+              PatientName: this.myForm.value.Name[0].name,
+              Patient2Name: this.myForm.value.Name[1].name,
+              Patient3Name: this.myForm.value.Name[2].name,
+              PatientID: key,
+              Patient2ID: key2,
+              Patient3ID: key3,
               Status: 'Pending',
               Payment: '',
               ROD: '',
@@ -254,7 +262,8 @@ export class EventModalPage {
         else if (this.myForm.value.Name[1]){
 
           console.log('2 patients');
-
+          let key:string = this.myForm.value.Name[0].Key;
+          let key2:string = this.myForm.value.Name[1].Key;
           this.itemsRef.push({
             Date: this.myForm.value.Date,
             startTime: this.myForm.value.startTime,
@@ -268,8 +277,11 @@ export class EventModalPage {
             Carpool: 'No',
             Needs: this.myForm.value.needs,
             Email: this.email,
-            PatientName: this.myForm.value.Name[0],
-            Patient2Name: this.myForm.value.Name[1],
+            ClientName: this.name,
+            PatientName: this.myForm.value.Name[0].name,
+            Patient2Name: this.myForm.value.Name[1].name,
+            PatientID: key,
+            Patient2ID: key2,
             Status: 'Pending',
             Payment: '',
             ROD: '',
@@ -296,7 +308,7 @@ export class EventModalPage {
   }
       else if (this.myForm.value.Name[0]){
           console.log('1 patient');
-
+          let key:string = this.myForm.value.Name[0].Key;
           this.itemsRef.push({
             Date: this.myForm.value.Date,
             startTime: this.myForm.value.startTime,
@@ -310,7 +322,9 @@ export class EventModalPage {
             Carpool: 'No',
             Needs: this.myForm.value.needs,
             Email: this.email,
-            PatientName: this.myForm.value.Name[0],
+            ClientName: this.name,
+            PatientName: this.myForm.value.Name[0].name,
+            PatientID: key,
             Status: 'Pending',
             Payment: '',
             ROD: '',

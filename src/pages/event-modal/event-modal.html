@@ -18,58 +18,59 @@
 
 <ion-content>
     <!-- Validations -->
-   <ion-list>
-    <p *ngIf="submitAttempt" style="color: #ea6153;">Please fill out all details accurately.</p>
-    <!-- <ion-list> -->
-    <form [formGroup]="myForm" >
-        <ion-item>  
-            <ion-label color="primary">Date:</ion-label>
-            <ion-datetime displayFormat="MM/DD/YYYY" pickerFormat="YYYY-MM-DD" [class.invalid]="!myForm.get('Date').valid && (myForm.get('Date').dirty || submitAttempt)" [(ngModel)]="event.startTime" [min]="minDate" formControlName="Date"></ion-datetime>
-        </ion-item>
-        <!-- <div class="error" *ngIf="!myForm.get('Date').valid && myForm.get('Date').touched">
+    <ion-list>
+        <p *ngIf="submitAttempt" style="color: #ea6153;">Please fill out all details accurately.</p>
+        <!-- <ion-list> -->
+        <form [formGroup]="myForm">
+            <ion-item>
+                <ion-label color="primary">Date:</ion-label>
+                <ion-datetime displayFormat="MM/DD/YYYY" pickerFormat="YYYY-MM-DD" [class.invalid]="!myForm.get('Date').valid && (myForm.get('Date').dirty || submitAttempt)" [(ngModel)]="event.startTime" [min]="minDate" formControlName="Date"></ion-datetime>
+            </ion-item>
+            <!-- <div class="error" *ngIf="!myForm.get('Date').valid && myForm.get('Date').touched">
             <p>Please select a valid date.</p>
         </div>   -->
 
-        <ion-item>
-            <ion-label color="primary">Time:</ion-label>
-            <ion-datetime displayFormat="h:mm a" pickerFormat="HH:mm" [class.invalid]="!myForm.get('startTime').valid && (myForm.get('startTime').dirty || submitAttempt)" hourValues="07,08,09,10,11,12,13,14,15,16,17,18,19,20" [(ngModel)]="startTime" [min]="minDate" formControlName="startTime"></ion-datetime>
-        </ion-item>
-        <!-- <div class="error" *ngIf="!myForm.get('startTime').valid && myForm.get('startTime').touched">
+            <ion-item>
+                <ion-label color="primary">Time:</ion-label>
+                <ion-datetime displayFormat="h:mm a" pickerFormat="HH:mm" [class.invalid]="!myForm.get('startTime').valid && (myForm.get('startTime').dirty || submitAttempt)" hourValues="07,08,09,10,11,12,13,14,15,16,17,18,19,20" [(ngModel)]="startTime" [min]="minDate"
+                    formControlName="startTime"></ion-datetime>
+            </ion-item>
+            <!-- <div class="error" *ngIf="!myForm.get('startTime').valid && myForm.get('startTime').touched">
             <p>Please select a time.</p>
         </div>  -->
 
-        <ion-item text-wrap>
-            <ion-label floating color="primary">Duration</ion-label>
+            <ion-item text-wrap>
+                <ion-label floating color="primary">Duration</ion-label>
                 <ion-select class="ion-select" formControlName="duration" text-wrap [class.invalid]="!myForm.get('duration').valid && (myForm.get('duration').dirty || submitAttempt)">
                     <ion-option text-wrap value="1">1 Hour</ion-option>
                     <ion-option text-wrap value="2">2 Hours</ion-option>
                     <ion-option text-wrap value="3">3 Hours</ion-option>
-                    <ion-option text-wrap value="4">4 Hours</ion-option>    
+                    <ion-option text-wrap value="4">4 Hours</ion-option>
                     <ion-option text-wrap value="5">5 Hours</ion-option>
                 </ion-select>
-        </ion-item>
+            </ion-item>
 
-        <ion-item>
-            <ion-label floating color="primary" text-wrap>Pickup Address:</ion-label>
-            <ion-input formControlName="Pickup" [class.invalid]="!myForm.get('Pickup').valid && (myForm.get('Pickup').dirty || submitAttempt)"></ion-input>
-        </ion-item>
-        <div class="error" *ngIf="!myForm.get('Pickup').valid && myForm.get('Pickup').touched">
-            <p>Please enter an address.</p>
-        </div> 
+            <ion-item>
+                <ion-label floating color="primary" text-wrap>Pickup Address:</ion-label>
+                <ion-input formControlName="Pickup" [class.invalid]="!myForm.get('Pickup').valid && (myForm.get('Pickup').dirty || submitAttempt)"></ion-input>
+            </ion-item>
+            <div class="error" *ngIf="!myForm.get('Pickup').valid && myForm.get('Pickup').touched">
+                <p>Please enter an address.</p>
+            </div>
 
-        <ion-item>
-            <ion-label floating color="primary" text-wrap>Destination Address:</ion-label>
-            <ion-input formControlName="destination" [class.invalid]="!myForm.get('destination').valid && (myForm.get('destination').dirty || submitAttempt)"></ion-input>
-        </ion-item>
-        <div class="error" *ngIf="!myForm.get('destination').valid && myForm.get('destination').touched">
-            <p>Please enter an address.</p>
-        </div> 
+            <ion-item>
+                <ion-label floating color="primary" text-wrap>Destination Address:</ion-label>
+                <ion-input formControlName="destination" [class.invalid]="!myForm.get('destination').valid && (myForm.get('destination').dirty || submitAttempt)"></ion-input>
+            </ion-item>
+            <div class="error" *ngIf="!myForm.get('destination').valid && myForm.get('destination').touched">
+                <p>Please enter an address.</p>
+            </div>
 
-        <!-- <ion-item>
+            <!-- <ion-item>
             <ion-input (click)="showAddressModal()" [(ngModel)]="address.place" type="text" placeholder="Pick an address">
             </ion-input>
         </ion-item> -->
-<!-- 
+            <!-- 
          <ion-item>
             <ion-label>Search your city</ion-label>
             <ion-input formControlName="placeAutofill" id="googlePlaces" required [class.invalid]="!myForm.get('placeAutofill').valid && (myForm.get('placeAutofill').dirty || submitAttempt)"></ion-input>
@@ -78,17 +79,17 @@
             <p>Please enter an address.</p>
         </div>  -->
 
-        <ion-item text-wrap>
-            <ion-label floating color="primary">Select family member(s):</ion-label>
+            <ion-item text-wrap>
+                <ion-label floating color="primary">Select family member(s):</ion-label>
                 <ion-select class="ion-select" multiple="true" formControlName="Name" text-wrap [class.invalid]="!myForm.get('Name').valid && (myForm.get('Name').dirty || submitAttempt)">
-                    <ion-option *ngFor="let family of (familys | async)" text-wrap value="{{ family.Name }}">{{ family.Name }}</ion-option>
-                     <!-- <ion-option *ngFor="let family of (familys | async)" text-wrap value="{{ family.Contact }}">{{ family.Contact }}</ion-option>  -->
+                    <ion-option *ngFor="let family of (familys | async)" text-wrap [value]="{Key:family.key, name:family.Name}">{{ family.Name }}</ion-option>
+                    <!-- <ion-option *ngFor="let family of (familys | async)" text-wrap value="{{ family.Contact }}">{{ family.Contact }}</ion-option>  -->
                     <!-- <ion-option text-wrap value="Female">Female</ion-option> -->
                 </ion-select>
-        </ion-item>
+            </ion-item>
 
-        <ion-item text-wrap>
-            <ion-label floating color="primary">Require Assistance?</ion-label>
+            <ion-item text-wrap>
+                <ion-label floating color="primary">Require Assistance?</ion-label>
                 <ion-select class="ion-select" multiple="true" formControlName="Assistance" text-wrap [class.invalid]="!myForm.get('Assistance').valid && (myForm.get('Assistance').dirty || submitAttempt)">
                     <ion-option text-wrap value="None" selected="true">None</ion-option>
                     <ion-option text-wrap value="Wheelchair">Wheelchair</ion-option>
@@ -96,23 +97,23 @@
                     <ion-option text-wrap value="IV">IV Drip Stand</ion-option>
                     <!-- <ion-option text-wrap value="Accompany">Accompany person from family</ion-option> -->
                 </ion-select>
-        </ion-item>
-        <!-- <div class="error" *ngIf="!myForm.get('Assistance').valid && myForm.get('Assistance').touched">
+            </ion-item>
+            <!-- <div class="error" *ngIf="!myForm.get('Assistance').valid && myForm.get('Assistance').touched">
             <p>Please enter an address.</p>
         </div>  -->
-            
-        <ion-item text-wrap>
-            <ion-label floating color="primary">Escort's Gender:</ion-label>
+
+            <ion-item text-wrap>
+                <ion-label floating color="primary">Escort's Gender:</ion-label>
                 <ion-select class="ion-select" formControlName="EscortsGender" text-wrap [class.invalid]="!myForm.get('EscortsGender').valid && (myForm.get('EscortsGender').dirty || submitAttempt)">
                     <ion-option text-wrap value="Male">Male</ion-option>
                     <ion-option text-wrap value="Female">Female</ion-option>
                 </ion-select>
-        </ion-item>
-        <!-- <div class="error" *ngIf="!myForm.get('EscortsGender').valid && myForm.get('EscortsGender').touched">
+            </ion-item>
+            <!-- <div class="error" *ngIf="!myForm.get('EscortsGender').valid && myForm.get('EscortsGender').touched">
             <p>Please enter an address.</p>
         </div>  -->
 
-         <!-- <ion-item text-wrap>
+            <!-- <ion-item text-wrap>
             <ion-label floating color="primary">Allow Carpooling?</ion-label>
                 <ion-select class="ion-select" formControlName="carpool" text-wrap [class.invalid]="!myForm.get('carpool').valid && (myForm.get('carpool').dirty || submitAttempt)">
                     <ion-option text-wrap value="Yes">Yes</ion-option>
@@ -120,40 +121,40 @@
                 </ion-select>
         </ion-item>  -->
 
-        <!-- <div class="error" *ngIf="!myForm.get('carpool').valid && myForm.get('carpool').touched">
+            <!-- <div class="error" *ngIf="!myForm.get('carpool').valid && myForm.get('carpool').touched">
             <p>Please enter an address.</p>
         </div>   -->
 
-        <!--New option-->
-         <ion-item class="fp" text-wrap no-lines>
-           <button ion-button block class="but" text-center (click)="Carpool()">Go Carpool</button>
-        </ion-item> 
+            <!--New option-->
+            <ion-item class="fp" text-wrap no-lines>
+                <button ion-button block class="but" text-center (click)="Carpool()">Go Carpool</button>
+            </ion-item>
 
-        <!-- <ion-item>
+            <!-- <ion-item>
             <ion-label color="primary" text-wrap>Special Needs:</ion-label>
             <ion-input formControlName="needs" placeholder="(Optional)"></ion-input>
         </ion-item> -->
-        <!-- <div class="error" *ngIf="!myForm.get('needs').valid && myForm.get('needs').touched">
+            <!-- <div class="error" *ngIf="!myForm.get('needs').valid && myForm.get('needs').touched">
             <p>Please enter something valid.</p>
         </div>  -->
 
-         <ion-item>
-            <ion-label color="primary" text-wrap>Secondary Contact Number:</ion-label>
-            <ion-input formControlName="Secondarytel" placeholder="(Optional)" type="tel" [class.invalid]="!myForm.get('Secondarytel').valid  && (myForm.get('Secondarytel').dirty || submitAttempt)"></ion-input>
-        </ion-item>
-        <div class="error" *ngIf="!myForm.get('Secondarytel').valid && myForm.get('Secondarytel').touched">
-            <p>Please enter a valid phone number of 8 characters.</p>
-        </div>
+            <ion-item>
+                <ion-label color="primary" text-wrap>Secondary Contact Number:</ion-label>
+                <ion-input formControlName="Secondarytel" placeholder="(Optional)" type="tel" [class.invalid]="!myForm.get('Secondarytel').valid  && (myForm.get('Secondarytel').dirty || submitAttempt)"></ion-input>
+            </ion-item>
+            <div class="error" *ngIf="!myForm.get('Secondarytel').valid && myForm.get('Secondarytel').touched">
+                <p>Please enter a valid phone number of 8 characters.</p>
+            </div>
 
-    </form>
-  </ion-list>
- 
-   <button ion-button full icon-left (click)="AddBooking()">
+        </form>
+    </ion-list>
+
+    <button ion-button full icon-left (click)="AddBooking()">
    <ion-icon name="checkmark"></ion-icon>Add Booking</button>
 
 
-   <!-- <button ion-button [disabled]="!myForm.valid || !isenabled" class="react" (click)="Register()">Register</button> -->
-   <!-- <button ion-button class="primary" (click)="Register()">Register</button> -->
+    <!-- <button ion-button [disabled]="!myForm.valid || !isenabled" class="react" (click)="Register()">Register</button> -->
+    <!-- <button ion-button class="primary" (click)="Register()">Register</button> -->
 
     <!-- Misc Content -->
 
@@ -227,5 +228,5 @@
         }
       }
     </script> -->
-    
+
 </ion-content>

@@ -84,10 +84,10 @@
     <plugin name="cordova-plugin-geolocation" spec="^3.0.0">
         <variable name="GEOLOCATION_USAGE_DESCRIPTION" value="To locate you" />
     </plugin>
-    <engine name="android" spec="~6.3.0" />
     <allow-navigation href="http://172.27.176.112:8100" />
     <allow-navigation href="http://192.168.111.1:8100" />
     <plugin name="cordova-plugin-camera" spec="^4.0.2" />
     <allow-navigation href="http://192.168.111.1:8101" />
     <allow-navigation href="http://192.168.0.102:8101" />
+    <engine name="android" spec="~6.3.0" />
 </widget>
