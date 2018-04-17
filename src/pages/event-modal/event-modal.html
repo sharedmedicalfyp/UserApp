@@ -49,21 +49,20 @@
                     <ion-option text-wrap value="5">5 Hours</ion-option>
                 </ion-select>
             </ion-item>
-
             <ion-item>
                 <ion-label floating color="primary" text-wrap>Pickup Address:</ion-label>
-                <ion-input formControlName="Pickup" [class.invalid]="!myForm.get('Pickup').valid && (myForm.get('Pickup').dirty || submitAttempt)"></ion-input>
+                <ion-input input formControlName="Pickup" (ionChange)="pickupEventFired()" (ionFocus)="pickupEventFired()" id="autocompletePickup" type="text" [class.invalid]="!myForm.get('Pickup').valid && (myForm.get('Pickup').dirty || submitAttempt)"></ion-input>
             </ion-item>
-            <div class="error" *ngIf="!myForm.get('Pickup').valid && myForm.get('Pickup').touched">
-                <p>Please enter an address.</p>
+            <div class="error" *ngIf="(!myForm.get('Pickup').valid && myForm.get('Pickup').touched) || validationcheckPickup == false">
+                <p>Please enter a valid address.</p>
             </div>
 
             <ion-item>
                 <ion-label floating color="primary" text-wrap>Destination Address:</ion-label>
-                <ion-input formControlName="destination" [class.invalid]="!myForm.get('destination').valid && (myForm.get('destination').dirty || submitAttempt)"></ion-input>
+                <ion-input input formControlName="destination" (ionChange)="destinationEventFired()" (ionFocus)="destinationEventFired()" id="autocompleteDestination" type="text" [class.invalid]="!myForm.get('destination').valid && (myForm.get('destination').dirty || submitAttempt)"></ion-input>
             </ion-item>
-            <div class="error" *ngIf="!myForm.get('destination').valid && myForm.get('destination').touched">
-                <p>Please enter an address.</p>
+            <div class="error" *ngIf="!myForm.get('destination').valid && myForm.get('destination').touched || validationcheckDestination == false">
+                <p>Please enter a valid address.</p>
             </div>
 
             <!-- <ion-item>

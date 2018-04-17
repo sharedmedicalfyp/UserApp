@@ -45,6 +45,7 @@ import { UpdatefamilydetailsPage } from '../pages/updatefamilydetails/updatefami
 import { UpdatebookingdetailsPage } from '../pages/updatebookingdetails/updatebookingdetails';
 import { RatingsPage } from '../pages/ratings/ratings';
 import { Camera, CameraOptions } from '@ionic-native/camera';
+import { AgmCoreModule } from '@agm/core'
 
 // AF2 Settings
 export const firebaseConfig = {
@@ -93,6 +94,10 @@ export const firebaseConfig = {
     //AngularFireModule.initializeApp(environment.firebase), // Connection string
     AngularFireModule.initializeApp(firebaseConfig),
     AngularFireAuthModule,    // AngularFire
+    AgmCoreModule.forRoot({
+      apiKey: "AIzaSyCIXMCaVFfmlN6mvST6JkhhNa9INnsyUdU",
+      libraries: ["places"]
+    }),
     //AngularFireDatabaseModule,
     NgCalendarModule,   
   ],

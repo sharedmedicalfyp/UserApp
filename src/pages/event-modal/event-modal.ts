@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild, ElementRef, NgZone } from '@angular/core';
 import { IonicPage, NavController, NavParams, ViewController, ModalController, AlertController, LoadingController, Loading } from 'ionic-angular';
 import * as moment from 'moment';
 import { AngularFireDatabase, AngularFireList, AngularFireObject } from 'angularfire2/database';
@@ -9,21 +9,10 @@ import { CalendarPage } from '../calendar/calendar';
 import { Bookings } from './../../model/bookings/bookings.model';
 import { ToastService } from './../../services/toast/toast.service';
 import { BookingListService } from './../../services/booking-list/booking-list.service';
- // import { AutocompletePage } from '../autocomplete/autocomplete';
 import firebase from 'firebase';
 import { FormControl, FormBuilder, FormGroup, Validators, ValidatorFn, AbstractControl, FormsModule } from '@angular/forms';
 
 declare var google:any;
-
-
-/**
-
-/**
- * Generated class for the EventModalPage page.
- *
- * See http://ionicframework.com/docs/components/#navigation for more info
- * on Ionic pages and navigation.
- */
 
 @IonicPage()
 @Component({
@@ -31,12 +20,20 @@ declare var google:any;
   templateUrl: 'event-modal.html',
 })
 export class EventModalPage {
+  pickuplng;
+  pickuplat;
+  destinationlng;
+  destinationlat;
+  validationcheckPickup : boolean = false;
+  validationcheckDestination : boolean = false;
+  autocompletePickup;
+  autocompleteDestination;
   address;
   public key;
   email;
   contact;
   name;
-
+  placeSearch;
   public ages: string;
   public AgeError: boolean = false;
   isenabled: boolean = false;
@@ -46,12 +43,11 @@ export class EventModalPage {
   public error: string;
  
   bookings: Observable<any[]>;
-  // itemRef: AngularFireList<any>;
   familys: Observable<any[]>;
   familyRef: AngularFireList<any>;
 
   public Person = {};
-
+  public searchControl: FormControl;
   public items: Array<any> = [];
   public itemsRef: firebase.database.Reference = firebase.database().ref('Bookings');
   public itemRef2: firebase.database.Reference = firebase.database().ref('Users');
@@ -63,11 +59,8 @@ export class EventModalPage {
 
   constructor(public navCtrl: NavController, private navParams: NavParams, public viewCtrl: ViewController,public afDatabase: AngularFireDatabase
   , private booking: BookingListService, private toast: ToastService, private modalCtrl: ModalController, public alertCtrl: AlertController
-  , public loadingCtrl: LoadingController,  public formBuilder: FormBuilder) {
-
-    // this.itemsRef = afDatabase.list('Bookings');  // Insert into Bookings table
+  , public loadingCtrl: LoadingController,  public formBuilder: FormBuilder, public ngZone: NgZone) {
      this.familyRef = afDatabase.list('FamilyProfile'
-     //,ref => ref.orderByChild('Date')
     );
 
     this.familys = this.familyRef.snapshotChanges().map(changes => {
@@ -77,7 +70,6 @@ export class EventModalPage {
     });
 
       this.myForm = formBuilder.group({
-     // placeAutofill: ['', Validators.required],
       Date: ['', Validators.required],
       startTime: ['', Validators.required],
       duration: ['', Validators.required],
@@ -103,25 +95,69 @@ export class EventModalPage {
     this.event.endTime = preselectedDate;
 
   }
+  //method fires whenever the textbox is edited
+  pickupEventFired(){
+      this.validationcheckPickup = false;
+      this.pickuplat = null; 
+      this.pickuplng = null;
+  }
+  //method fires whenever the textbox is edited
+  destinationEventFired(){
+      this.validationcheckDestination = false;
+      this.destinationlat = null; 
+      this.destinationlng = null;
+  }
+  //initialize autocomplete google places api
+  initAutocomplete() {
+    this.searchControl = new FormControl();
+    //init pickup textbox
+    let pickupInputBox = document.getElementById('autocompletePickup').getElementsByTagName('input')[0];
+    this.autocompletePickup = new google.maps.places.Autocomplete(pickupInputBox, {
+      componentRestrictions: {country: "sg"}
+    });
+    this.autocompletePickup.addListener("place_changed",() => { 
+      this.ngZone.run(() => {
+        let place = this.autocompletePickup.getPlace();
+        console.log("Pick up location : "+document.getElementById('autocompletePickup').getElementsByTagName('input')[0].value)
+        this.pickuplat = place.geometry.location.lat();
+        this.pickuplng = place.geometry.location.lng();
+        if (place.geometry === undefined || place.geometry === null) {
+                      return;
+          }
+      })
+      //store them into pickuplat and pickuplng to push to database later.
+      console.log("pickupLat value: "+this.pickuplat);
+      console.log("pickupLng value: "+this.pickuplng);
+      this.validationcheckPickup = true;
+    });
 
-   // Modal popout
-  //  showAddressModal () {
-  //   let modal = this.modalCtrl.create(AutocompletePage);
-  //   let me = this;
-  //   modal.onDidDismiss(data => {
-  //     this.address.place = data;
-  //   });
-  //   modal.present();
-  // }
+    //init destination textbox
+    let destinationInputBox = document.getElementById('autocompleteDestination').getElementsByTagName('input')[0];
+    this.autocompleteDestination = new google.maps.places.Autocomplete(destinationInputBox, {
+      componentRestrictions: {country: "sg"}
+    });
+    this.autocompleteDestination.addListener("place_changed",() => { 
+      this.ngZone.run(() => {
+        let place = this.autocompleteDestination.getPlace();
+        console.log("Destination location : "+document.getElementById('autocompleteDestination').getElementsByTagName('input')[0].value)
+        this.destinationlat = place.geometry.location.lat(); 
+        this.destinationlng = place.geometry.location.lng();
+        if (place.geometry === undefined || place.geometry === null) {
+                      return;
+          }
+      })
+
+      //store them into destinationlat and destinationlng to push to database later.
+      console.log("destinationLat value: "+this.destinationlat);
+      console.log("destinationLng value: "+this.destinationlng);
+      this.validationcheckDestination = true;
+    });
+  }
+
+
 
   ionViewWillEnter() {
-   // Google Places API auto complete
-  //  let input = document.getElementById('googlePlaces').getElementsByTagName('input')[0];
-  //  let autocomplete = new google.maps.places.Autocomplete(input, {types: ['geocode']});
-  //  google.maps.event.addListener(autocomplete, 'place_changed', () => {
-  //    // retrieve the place object for your use
-  //    let place = autocomplete.getPlace();
-  //  });
+
 }
 
   Carpool(){
@@ -153,28 +189,7 @@ export class EventModalPage {
 
       });
 
-    // console.log(this.event.startTime);
-    // console.log(this.key);
-    // console.log(this.contact);
-   // console.log(this.name);
-   // console.log(this.email);
-
-    
-    // this.status = this.navParams.get('Status');
-    // if(this.status ==='Pending'){
-    //   this.button = true;
-    // }
-    //   if(this.status ==='Accepted'){
-    //   this.button = false;
-    // }
-    //     this.itemRef.child(this.key).once('value', (itemkeySnapshot) => {
-
-    //       this.items.push(itemkeySnapshot.val());
-    //       console.log(this.items);
-    //       this.itemRefs = firebase.database().ref('Bookings/' + this.key);
-    //     });
-
-    //   return false;
+      this.initAutocomplete();
   }
 
   AddBooking(){
@@ -219,10 +234,14 @@ export class EventModalPage {
               Date: this.myForm.value.Date,
               startTime: this.myForm.value.startTime,
               endTime: endTime,
-              Pickup: this.myForm.value.Pickup,
+              Pickup: document.getElementById('autocompletePickup').getElementsByTagName('input')[0].value,
               PickupRegion: pickupregion,
-              Destination: this.myForm.value.destination,
+              Destination: document.getElementById('autocompleteDestination').getElementsByTagName('input')[0].value,
               DestinationRegion: destregion,
+              Pickuplat: this.pickuplat,
+              Pickuplng: this.pickuplng,
+              Destinationlat: this.destinationlat,
+              Destinationlng: this.destinationlng,
               Assistance: this.myForm.value.Assistance,
               EscortsGender: this.myForm.value.EscortsGender,
               Carpool: 'No',
@@ -251,13 +270,7 @@ export class EventModalPage {
             });
             alert.present();
 
-            // this.myForm.reset();
           this.viewCtrl.dismiss();
-          // this.navCtrl.push(BookingPage);
-          // this.navCtrl.setRoot(BookingPage)
-          //   .then(() => {
-          //     this.navCtrl.popToRoot();
-          //   });
     }
         else if (this.myForm.value.Name[1]){
 
@@ -268,10 +281,14 @@ export class EventModalPage {
             Date: this.myForm.value.Date,
             startTime: this.myForm.value.startTime,
             endTime: endTime,
-            Pickup: this.myForm.value.Pickup,
+            Pickup: document.getElementById('autocompletePickup').getElementsByTagName('input')[0].value,
             PickupRegion: pickupregion,
-            Destination: this.myForm.value.destination,
+            Destination: document.getElementById('autocompleteDestination').getElementsByTagName('input')[0].value,
             DestinationRegion: destregion,
+            Pickuplat: this.pickuplat,
+            Pickuplng: this.pickuplng,
+            Destinationlat: this.destinationlat,
+            Destinationlng: this.destinationlng,
             Assistance: this.myForm.value.Assistance,
             EscortsGender: this.myForm.value.EscortsGender,
             Carpool: 'No',
@@ -297,14 +314,7 @@ export class EventModalPage {
             buttons: ['OK']
           });
           alert.present();
-
-          // this.myForm.reset();
           this.viewCtrl.dismiss();
-          // this.navCtrl.push(BookingPage);
-          // this.navCtrl.setRoot(BookingPage)
-          //   .then(() => {
-          //     this.navCtrl.popToRoot();
-          //   });
   }
       else if (this.myForm.value.Name[0]){
           console.log('1 patient');
@@ -313,10 +323,14 @@ export class EventModalPage {
             Date: this.myForm.value.Date,
             startTime: this.myForm.value.startTime,
             endTime: endTime,
-            Pickup: this.myForm.value.Pickup,
+            Pickup: document.getElementById('autocompletePickup').getElementsByTagName('input')[0].value,
             PickupRegion: pickupregion,
-            Destination: this.myForm.value.destination,
+            Destination: document.getElementById('autocompleteDestination').getElementsByTagName('input')[0].value,
             DestinationRegion: destregion,
+            Pickuplat: this.pickuplat,
+            Pickuplng: this.pickuplng,
+            Destinationlat: this.destinationlat,
+            Destinationlng: this.destinationlng,
             Assistance: this.myForm.value.Assistance,
             EscortsGender: this.myForm.value.EscortsGender,
             Carpool: 'No',
@@ -333,7 +347,6 @@ export class EventModalPage {
             Driver: '',
             Contact: this.contact,
             SecondaryContact: this.myForm.value.Secondarytel,
-           // Test: this.myForm.value.placeAutofill
 
             });
             let alert = this.alertCtrl.create({
@@ -342,13 +355,7 @@ export class EventModalPage {
           });
           alert.present();
 
-          // this.myForm.reset();
           this.viewCtrl.dismiss();
-          // this.navCtrl.push(BookingPage);
-          // this.navCtrl.setRoot(BookingPage)
-          //   .then(() => {
-          //     this.navCtrl.popToRoot();
-          //   });
   }
       }
     catch (e) {
