@@ -16,7 +16,7 @@
             <button ion-button icon-only (click)="addEvent()">
                 <ion-icon name="add"></ion-icon>
             </button>
-            
+
             <!-- <button ion-button icon-only (click)="addCarpool()">
                 <ion-icon name="car"></ion-icon>
             </button> -->
@@ -25,8 +25,24 @@
 </ion-header>
 
 <ion-content>
-     <calendar [eventSource]="eventSource" [calendarMode]="calendar.mode" [currentDate]="calendar.currentDate" 
+    <calendar [monthviewEventDetailTemplate]="template" [eventSource]="eventSource" [markDisabled]="markDisabled" [calendarMode]="calendar.mode" [currentDate]="calendar.currentDate" (onEventSelected)="onEventSelected($event)" (onTitleChanged)="onViewTitleChanged($event)"
+        (onTimeSelected)="onTimeSelected($event)" step="30">
+    </calendar>
+    <template #template let-showEventDetail="showEventDetail" let-selectedDate="selectedDate" let-noEventsLabel="noEventsLabel">
+                <ion-list class="event-detail-container" overflow-scroll="false" has-bouncing="false">
+                    <ion-item *ngIf="selectedDate.events.length == 0"><div class="no-events-label">No Events</div></ion-item>
+                    <ion-item (click)="onEventSelected(event)" *ngFor="let event of selectedDate.events" text-wrap>
+                        <h2><strong>{{event.title}}</strong></h2>
+                        <h2>Start Time: {{event.startTime | date: 'shortTime'}}</h2>
+                        <h2>End Time: {{event.endTime | date: 'shortTime'}}</h2>
+                        <h3>Pick Up: {{event.pickUp}} </h3>
+                        <h3>Destination: {{event.destination}}</h3>
+                        
+                    </ion-item>
+                </ion-list>
+            </template>
+    <!-- <calendar [eventSource]="eventSource" [calendarMode]="calendar.mode" [currentDate]="calendar.currentDate" 
      (onEventSelected)="onEventSelected($event)" (onTitleChanged)="onViewTitleChanged($event)" 
      (onTimeSelected)="onTimeSelected($event)" [markDisabled]="markDisabled" step="30" class="calendar">
-    </calendar> 
+    </calendar> -->
 </ion-content>

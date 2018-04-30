@@ -116,6 +116,7 @@ export class EventModalPage {
       componentRestrictions: {country: "sg"}
     });
     this.autocompletePickup.addListener("place_changed",() => { 
+      try{
       this.ngZone.run(() => {
         let place = this.autocompletePickup.getPlace();
         console.log("Pick up location : "+document.getElementById('autocompletePickup').getElementsByTagName('input')[0].value)
@@ -129,6 +130,9 @@ export class EventModalPage {
       console.log("pickupLat value: "+this.pickuplat);
       console.log("pickupLng value: "+this.pickuplng);
       this.validationcheckPickup = true;
+    }catch(err){
+
+    }
     });
 
     //init destination textbox
@@ -137,6 +141,7 @@ export class EventModalPage {
       componentRestrictions: {country: "sg"}
     });
     this.autocompleteDestination.addListener("place_changed",() => { 
+      try{
       this.ngZone.run(() => {
         let place = this.autocompleteDestination.getPlace();
         console.log("Destination location : "+document.getElementById('autocompleteDestination').getElementsByTagName('input')[0].value)
@@ -151,6 +156,9 @@ export class EventModalPage {
       console.log("destinationLat value: "+this.destinationlat);
       console.log("destinationLng value: "+this.destinationlng);
       this.validationcheckDestination = true;
+    }catch(err){
+
+    }
     });
   }
 

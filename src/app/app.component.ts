@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { Nav, Platform, App, MenuController, Events } from 'ionic-angular';
+import { Nav, Platform, App, MenuController, Events, LoadingController, ToastController } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { HomePage } from '../pages/home/home';
@@ -44,7 +44,7 @@ export class MyApp {
 
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen,
   public splitPlane: SplitPane, public app:App, public menu: MenuController,
-  private afAuth: AngularFireAuth , public events: Events,) {
+  private afAuth: AngularFireAuth , public events: Events, public load:LoadingController, public toast: ToastController) {
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
@@ -90,22 +90,46 @@ export class MyApp {
   }
 
   Logout() {
-    this.menu.close();
-    window.localStorage.clear();
-    window.localStorage.isMySessionActive = "false";
-
-    console.log(window.localStorage.getItem('Email'));
-
-    firebase.auth().signOut().then(function () {
-      // Sign-out successfully.
-      // setTimeout(function () {
-        window.location.reload();
-      // }, 100);
-
-    }, function (error) {
-      // An error happened.
-      console.log(error);
+    let page = {component: LoginPage}
+    let loading = this.load.create({
+      content: "Signing Out"
     });
+    loading.present();
+    this.menu.close();
+    this.menu.swipeEnable(false);
+    this.activePage = this.pages[1];
+
+    //clearing session and local storage
+    window.sessionStorage.clear();
+    window.localStorage.clear();
+
+    firebase.auth().signOut();
+    this.nav.setRoot(page.component);
+    this.nav.popToRoot();
+    loading.dismiss();
+    this.toast.create({
+      message: "Successfully signed out",
+      duration: 1500,
+    }).present();
+
+
+
+    // this.menu.close();
+    // window.localStorage.clear();
+    // window.localStorage.isMySessionActive = "false";
+
+    // console.log(window.localStorage.getItem('Email'));
+
+    // firebase.auth().signOut().then(function () {
+    //   // Sign-out successfully.
+    //   // setTimeout(function () {
+    //     window.location.reload();
+    //   // }, 100);
+
+    // }, function (error) {
+    //   // An error happened.
+    //   console.log(error);
+    // });
   }
 
    openPage(page) {

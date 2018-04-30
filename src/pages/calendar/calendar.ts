@@ -89,7 +89,12 @@ export class CalendarPage {
       }
     });
   }
-
+//   onCurrentDateChanged(event: Date) {
+//     var today = new Date();
+//     today.setHours(0, 0, 0, 0);
+//     event.setHours(0, 0, 0, 0);
+//     //this.isToday = today.getTime() === event.getTime();
+// }
   addCarpool() {
     let modal = this.modalCtrl.create('CarpoolPage', {selectedDay: this.selectedDay});
     modal.present();
@@ -165,6 +170,8 @@ export class CalendarPage {
                   if(r.Patient3Name != null){
                       this.events.push({
                         title:  r.PatientName + ", " + r.Patient2Name + ", " + r.Patient3Name,
+                        pickUp: r.Pickup,
+                        destination: r.Destination,
                         key: r.key,
                         startTime: startTime,
                         endTime: EndTime,
@@ -175,6 +182,8 @@ export class CalendarPage {
                     console.log(r.Patient2Name);
                       this.events.push({
                           title:  r.PatientName + ", " + r.Patient2Name ,
+                          pickUp: r.Pickup,
+                        destination: r.Destination,
                           key: r.key,
                           startTime: startTime,
                           endTime: EndTime,
@@ -186,6 +195,8 @@ export class CalendarPage {
                   else{
                         this.events.push({
                           title: r.PatientName,
+                          pickUp: r.Pickup,
+                        destination: r.Destination,
                           key: r.key,
                           startTime: startTime,
                           endTime: EndTime,

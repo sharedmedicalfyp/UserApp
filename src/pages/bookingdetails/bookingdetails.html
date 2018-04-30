@@ -17,8 +17,46 @@
 
 
     <ion-list *ngFor="let item of items ">
+        <ion-item text-wrap>
+            <h2><strong>Pickup address:</strong></h2>
+            <h2>{{item.Pickup}}</h2>
 
-        <form [formGroup]="myForm">
+            <h2><strong>Destination address:</strong></h2>
+            <h2>{{item.Destination}}</h2>
+
+            <h2><strong>Assistance:</strong></h2>
+            <h2>{{item.Assistance}}</h2>
+
+            <h2><strong>Start Time:</strong></h2>
+            <h2>{{item.startTime}}</h2>
+
+            <h2><strong>End Time:</strong></h2>
+            <h2>{{item.endTime}}</h2>
+
+            <h2><strong>Contact no:</strong></h2>
+            <h2>{{item.Contact}}</h2>
+
+            <h2 *ngIf="item.SecondaryContact"><strong>Secondary Contact no:</strong></h2>
+            <h2 *ngIf="item.SecondaryContact">{{item.SecondaryContact}}</h2>
+
+            <h2><strong>Escort's Gender:</strong></h2>
+            <h2>{{item.EscortsGender}}</h2>
+
+            <h2><strong>Riders:</strong></h2>
+            <ul>
+                <li>
+                    <h2>{{item.PatientName}}</h2>
+                </li>
+                <li *ngIf="item.Patient2Name">
+                    <h2>{{item.Patient2Name}}</h2>
+                </li>
+                <li *ngIf="item.Patient3Name">
+                    <h2>{{item.Patient3Name}}</h2>
+                </li>
+            </ul>
+
+        </ion-item>
+        <!-- <form [formGroup]="myForm">
             <ion-item>
                 <ion-label color="primary">Pickup address:</ion-label>
                 <ion-input disabled="true" formControlName="Pickup" [class.invalid]="!myForm.get('Pickup').valid && (myForm.get('Pickup').dirty || submitAttempt)" placeholder="Text Input" value="{{ item.Pickup }}"></ion-input>
@@ -103,21 +141,18 @@
             </ion-item>
             <div class="error" *ngIf="!myForm.get('EscortsGender').valid && myForm.get('EscortsGender').touched">
                 <p>Please enter a valid Escort Gender.</p>
-            </div>
+            </div> -->
 
-        </form>
+        <!-- </form> -->
 
-        <br>
-        <ion-row>
-            <!-- <ion-col col-6> -->
-            <!-- <button ion-button [disabled]="!isenabled"  (click)="saveItem(item)">Update</button> -->
+        <!-- <ion-col col-6> -->
+        <!-- <button ion-button [disabled]="!isenabled"  (click)="saveItem(item)">Update</button> -->
 
-            <!-- <button ion-button block color="ionic" *ngIf="item.Status === 'Pending'" [disabled]="!isenabled" (click)="Update()">Update Booking</button> -->
+        <!-- <button ion-button block color="ionic" *ngIf="item.Status === 'Pending'" [disabled]="!isenabled" (click)="Update()">Update Booking</button> -->
 
-            <!-- </ion-col>
+        <!-- </ion-col>
              <ion-col col-6> -->
-            <button ion-button color="danger" block *ngIf="item.Status === 'Accepted' || item.Status === 'Pending'" (click)="Cancel()">Cancel Booking</button>
-            <!-- </ion-col> -->
-        </ion-row>
+        <button ion-button color="danger" block *ngIf="item.Status === 'Accepted' || item.Status === 'Pending'" (click)="Cancel()">Cancel Booking</button>
+        <!-- </ion-col> -->
     </ion-list>
 </ion-content>

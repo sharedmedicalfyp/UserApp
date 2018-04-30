@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController, ToastController, LoadingController, Loading } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController, ToastController, LoadingController, Loading, MenuController } from 'ionic-angular';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { HomePage } from '../home/home';
 import { AboutPage } from '../about/about';
@@ -48,13 +48,12 @@ export class LoginPage {
   email: '';
   password: '';
   name="";
-  public loading: Loading;
 
   items: Observable<any[]>;
  // items2: AngularFireList<any[]>;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private toastCtrl: ToastController, public afAuth: AngularFireAuth
-  ,public alertCtrl: AlertController,  public loadingCtrl: LoadingController, private afDB: AngularFireDatabase) {
+  ,public alertCtrl: AlertController,  public loading: LoadingController, private afDB: AngularFireDatabase, private menu: MenuController) {
    this.itemRef = this.afDB.database.ref('Users');    
     // Retrieve list of items
     // this.items = afDB.list('Bookings').valueChanges();
@@ -115,41 +114,57 @@ export class LoginPage {
   // }
 
   Login() {
-    this.afAuth.auth.signInWithEmailAndPassword(this.email, this.password)
-      .then(auth => {
-        try {
-          firebase.auth().onAuthStateChanged((user) => {
-
+    let loader = this.loading.create({
+      content: "Logging in..."
+    });
+    loader.present();
+    this.afAuth.auth.signInWithEmailAndPassword(this.email, this.password).then((result) => {
+      
+      try {
+        let user = this.afAuth.auth.currentUser; 
             if (user.emailVerified) {
-              window.localStorage.setItem('Email', this.email);
-              this.itemRef.orderByChild("Email").equalTo(this.email).once('value', (snap) => {
+              window.localStorage.setItem('Email', this.email.toLocaleLowerCase());
+              this.itemRef.orderByChild("Email").equalTo(this.email.toLowerCase()).once('value', (snap) => {
+                //checks if record exists
+                if(snap.exists()){ 
+                //user record exists
                 snap.forEach(itemSnap => {
             
                   this.name = itemSnap.child("Name").val();
                   console.log(this.name);
                    window.localStorage.setItem('Name', this.name);
-
                 });
-              }),
-                // this.navCtrl.push(CalendarPage);
-              this.navCtrl.setRoot(CalendarPage);
-            }
-            else if (!user.emailVerified) {
-              let alert = this.alertCtrl.create({
-                message: "Email not verified. Please verify again.",
-                buttons: [{ text: "Ok" }]
+                this.navCtrl.setRoot(CalendarPage);//proceed to next page
+                this.menu.swipeEnable(true);
+                loader.dismiss();
+              }else{ 
+                  //user record does not exist, throw error
+                  let toast = this.toastCtrl.create({
+                    message: "There is no user record corresponding to this identifier. The user may have been deleted.",
+                    duration: 3000
+                  });
+                  loader.dismiss();
+                  toast.present();
+                }
               });
-              alert.present();
+            }
+            else{
+              let toast = this.toastCtrl.create({
+                message: "Email not verified. Please verify again.",
+                duration: 3000
+              });
+              loader.dismiss();
+              toast.present();
               user.sendEmailVerification();
             }
 
-          });
         } 
         catch (err) {
           let toast = this.toastCtrl.create({
             message: err.message,
             duration: 1000
           });
+          loader.dismiss();
           toast.present();
         }
       })
@@ -158,6 +173,7 @@ export class LoginPage {
           message: err.message,
           duration: 1000
         });
+        loader.dismiss();
         toast.present();
       });
 
