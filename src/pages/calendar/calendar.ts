@@ -159,7 +159,7 @@ export class CalendarPage {
             return changes.map(c =>
                 ({ key: c.payload.key, ...c.payload.val() }))
                 .filter(items => items.Email === this.email
-                && items.Status === 'Accepted' || items.Status === 'Pending');
+                && items.Status === 'Accepted' || items.Status === 'Pending' || items.Status === 'Ongoing');
         }).subscribe(time => {
             this.events.length = 0;
             
@@ -175,6 +175,7 @@ export class CalendarPage {
                         key: r.key,
                         startTime: startTime,
                         endTime: EndTime,
+                        Status: r.Status,
                         allDay: false
                     });
                   }
@@ -187,6 +188,7 @@ export class CalendarPage {
                           key: r.key,
                           startTime: startTime,
                           endTime: EndTime,
+                          Status: r.Status,
                           allDay: false
                           
                       });
@@ -200,6 +202,7 @@ export class CalendarPage {
                           key: r.key,
                           startTime: startTime,
                           endTime: EndTime,
+                          Status: r.Status,
                           allDay: false
                       });
                   }

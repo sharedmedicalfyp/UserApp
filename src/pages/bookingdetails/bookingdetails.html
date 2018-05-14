@@ -54,6 +54,12 @@
                     <h2>{{item.Patient3Name}}</h2>
                 </li>
             </ul>
+            <div *ngIf="item.Status == 'Ongoing'">
+                <h2><strong>Patient Statuses:</strong></h2>
+                <h2>{{item.PatientName}}: {{item.PatientStatus}}</h2>
+                <h2 *ngIf="item.Patient2Name">{{item.Patient2Name}}: {{item.Patient2Status}}</h2>
+                <h2 *ngIf="item.Patient3Name">{{item.Patient3Name}}: {{item.Patient3Status}}</h2>
+            </div>
 
         </ion-item>
         <!-- <form [formGroup]="myForm">

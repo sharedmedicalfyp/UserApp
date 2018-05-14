@@ -32,6 +32,7 @@
                 <ion-list class="event-detail-container" overflow-scroll="false" has-bouncing="false">
                     <ion-item *ngIf="selectedDate.events.length == 0"><div class="no-events-label">No Events</div></ion-item>
                     <ion-item (click)="onEventSelected(event)" *ngFor="let event of selectedDate.events" text-wrap>
+                        <h2 style="color:red" *ngIf="event.Status === 'Ongoing'"><strong>==Currently Ongoing==</strong></h2>
                         <h2><strong>{{event.title}}</strong></h2>
                         <h2>Start Time: {{event.startTime | date: 'shortTime'}}</h2>
                         <h2>End Time: {{event.endTime | date: 'shortTime'}}</h2>
