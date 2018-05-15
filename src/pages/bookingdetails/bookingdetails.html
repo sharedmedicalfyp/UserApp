@@ -28,10 +28,10 @@
             <h2>{{item.Assistance}}</h2>
 
             <h2><strong>Start Time:</strong></h2>
-            <h2>{{item.startTime}}</h2>
+            <h2>{{setTime(item.startTime, item.Date) | date : 'shortTime'}}</h2>
 
             <h2><strong>End Time:</strong></h2>
-            <h2>{{item.endTime}}</h2>
+            <h2>{{setTime(item.endTime, item.Date) | date : 'shortTime'}}</h2>
 
             <h2><strong>Contact no:</strong></h2>
             <h2>{{item.Contact}}</h2>

@@ -105,7 +105,9 @@ export class BookingdetailsPage {
    // this.item = this.navParams.get('item');
 
   }
-
+  setTime(time, date) {
+    return (new Date(date + " " +time));
+  }
    Update() {
     try {
       this.isenabled = false;
