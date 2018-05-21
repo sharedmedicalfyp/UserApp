@@ -118,13 +118,13 @@ export class LoginPage {
       content: "Logging in..."
     });
     loader.present();
-    this.afAuth.auth.signInWithEmailAndPassword(this.email, this.password).then((result) => {
+    this.afAuth.auth.signInWithEmailAndPassword(this.email.trim(), this.password).then((result) => {
       
       try {
         let user = this.afAuth.auth.currentUser; 
             if (user.emailVerified) {
-              window.localStorage.setItem('Email', this.email.toLocaleLowerCase());
-              this.itemRef.orderByChild("Email").equalTo(this.email.toLowerCase()).once('value', (snap) => {
+              window.localStorage.setItem('Email', this.email.trim().toLocaleLowerCase());
+              this.itemRef.orderByChild("Email").equalTo(this.email.trim().toLowerCase()).once('value', (snap) => {
                 //checks if record exists
                 if(snap.exists()){ 
                 //user record exists
